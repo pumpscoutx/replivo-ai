@@ -5,12 +5,25 @@ import Header from '@/components/Header'
 import MainAgentCard from '@/components/MainAgentCard'
 import AgentRecommender from '@/components/AgentRecommender'
 import CustomAgentRequestor from '@/components/CustomAgentRequestor'
+import SubAgentMarketplace from '@/components/SubAgentMarketplace'
 import { mainAgents } from '@/data/agents'
-import { motion } from 'framer-motion'
 
 export default function Home() {
   const [showRecommender, setShowRecommender] = useState(false)
   const [showRequestor, setShowRequestor] = useState(false)
+  const [showSubAgentMarketplace, setShowSubAgentMarketplace] = useState(false)
+  const [selectedSubAgents, setSelectedSubAgents] = useState<any[]>([])
+
+  const handleViewSubAgents = (subAgents: any[]) => {
+    setSelectedSubAgents(subAgents)
+    setShowSubAgentMarketplace(true)
+  }
+
+  const handleHireSubAgent = (subAgent: any) => {
+    // Handle sub-agent hiring logic
+    console.log('Hiring sub-agent:', subAgent)
+    // You can add a toast notification or modal here
+  }
 
   return (
     <div className="min-h-screen bg-neutral-50">
@@ -19,93 +32,56 @@ export default function Home() {
       <main className="container-max section-padding">
         {/* Hero Section */}
         <section className="text-center mb-20">
-          <motion.h1 
-            className="text-5xl md:text-6xl font-bold text-neutral-900 mb-8 text-display"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <h1 className="text-5xl md:text-6xl font-bold text-neutral-900 mb-6">
             Hire Your <span className="text-primary-600">AI Workforce</span>
-          </motion.h1>
-          <motion.p 
-            className="text-xl text-neutral-600 mb-10 max-w-4xl mx-auto leading-relaxed text-body"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            Intelligent AI agents that work across your business workflows. 
+          </h1>
+          <p className="text-xl text-neutral-600 mb-8 max-w-3xl mx-auto">
+            Intelligent AI agents that work across your business workflows.
             Each agent is a bundle of specialized sub-agents ready to tackle your tasks.
-          </motion.p>
-          <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <button 
-              onClick={() => setShowRecommender(true)}
-              className="button-primary text-lg px-8 py-4"
-            >
+          </p>
+          <div className="flex gap-4 justify-center">
+            <button onClick={() => setShowRecommender(true)} className="button-primary">
               Find the Right Agent
             </button>
-            <button 
-              onClick={() => setShowRequestor(true)}
-              className="button-secondary text-lg px-8 py-4"
-            >
+            <button onClick={() => setShowRequestor(true)} className="button-secondary">
               Request Custom Agent
             </button>
-          </motion.div>
+          </div>
         </section>
 
         {/* Main Agents Grid */}
         <section className="mb-20">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-neutral-900 mb-12 text-center text-display"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
+          <h2 className="text-3xl font-bold text-neutral-900 mb-8 text-center">
             Available Main Agents
-          </motion.h2>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {mainAgents.map((agent, index) => (
-              <motion.div
-                key={agent.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-              >
-                <MainAgentCard agent={agent} />
-              </motion.div>
+            {mainAgents.map((agent) => (
+              <MainAgentCard 
+                key={agent.id} 
+                agent={agent} 
+                onViewSubAgents={handleViewSubAgents}
+              />
             ))}
           </div>
           
           {/* Custom Agent Request CTA */}
-          <motion.div 
-            className="text-center mt-16 p-10 card-minimal hover-lift"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-          >
-            <h3 className="text-2xl font-semibold text-neutral-900 mb-4 text-display">
+          <div className="text-center mt-12 p-8 bg-white rounded-xl shadow-soft border border-neutral-200">
+            <h3 className="text-2xl font-semibold text-neutral-900 mb-4">
               Didn't find the agent you need?
             </h3>
-            <p className="text-neutral-600 mb-8 max-w-2xl mx-auto leading-relaxed text-body">
+            <p className="text-neutral-600 mb-6">
               Let us know what you're looking for and we'll build it for you.
             </p>
-            <button 
-              onClick={() => setShowRequestor(true)}
-              className="button-primary text-lg px-8 py-4"
-            >
+            <button onClick={() => setShowRequestor(true)} className="button-primary">
               Request Custom Agent
             </button>
-          </motion.div>
+          </div>
         </section>
       </main>
 
       {/* Agent Recommender Modal */}
       {showRecommender && (
-        <AgentRecommender 
+        <AgentRecommender
           onClose={() => setShowRecommender(false)}
           onRequestCustom={() => {
             setShowRecommender(false)
@@ -116,8 +92,17 @@ export default function Home() {
 
       {/* Custom Agent Requestor Modal */}
       {showRequestor && (
-        <CustomAgentRequestor 
+        <CustomAgentRequestor
           onClose={() => setShowRequestor(false)}
+        />
+      )}
+
+      {/* Sub-Agent Marketplace Modal */}
+      {showSubAgentMarketplace && (
+        <SubAgentMarketplace
+          subAgents={selectedSubAgents}
+          onClose={() => setShowSubAgentMarketplace(false)}
+          onHire={handleHireSubAgent}
         />
       )}
     </div>
