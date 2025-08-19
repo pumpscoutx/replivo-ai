@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+@layer base {
+  html {
+    font-family: 'Inter', 'SF Pro Display', system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-neutral-50 text-neutral-900 antialiased;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+}
+
+@layer components {
+  /* Minimalist Card Design */
+  .card-minimal {
+    @apply bg-white rounded-xl border border-neutral-200 shadow-soft transition-all duration-300;
+  }
+  
+  .card-hover {
+    @apply hover:shadow-medium hover:scale-[1.02] hover:border-neutral-300;
+  }
+  
+  /* Refined Button System */
+  .button-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 hover:shadow-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
+  
+  .button-secondary {
+    @apply bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-medium py-3 px-6 rounded-lg transition-all duration-200 hover:shadow-soft focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2;
+  }
+  
+  .button-ghost {
+    @apply text-neutral-600 hover:text-neutral-900 font-medium py-2 px-4 rounded-lg transition-all duration-200 hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2;
+  }
+  
+  /* Agent Card Styling */
+  .agent-card {
+    @apply card-minimal card-hover overflow-hidden;
+  }
+  
+  /* Subtle Hover Effects */
+  .hover-lift {
+    @apply transition-all duration-300 hover:translate-y-[-2px] hover:shadow-medium;
+  }
+  
+  /* Glass Effect */
+  .glass-effect {
+    @apply backdrop-blur-sm bg-white/90 border border-white/20 shadow-soft;
+  }
+  
+  /* Input Styling */
+  .input-field {
+    @apply w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200;
+  }
+  
+  /* Badge Styling */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .badge-primary {
+    @apply bg-primary-100 text-primary-700;
+  }
+  
+  .badge-neutral {
+    @apply bg-neutral-100 text-neutral-700;
+  }
+  
+  .badge-accent {
+    @apply bg-accent-100 text-accent-700;
+  }
+  
+  /* Section Spacing */
+  .section-padding {
+    @apply py-16 px-4;
+  }
+  
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+  
+  /* Typography Utilities */
+  .text-display {
+    font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+  }
+  
+  .text-body {
+    font-family: 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  }
+  
+  /* Animation Utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+} 

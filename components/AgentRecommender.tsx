@@ -1,0 +1,193 @@
+'use client'
+
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { X, Send, Bot, ArrowRight } from 'lucide-react'
+import { mainAgents } from '@/data/agents'
+
+interface AgentRecommenderProps {
+  onClose: () => void
+  onRequestCustom: () => void
+}
+
+interface Message {
+  id: string
+  text: string
+  isUser: boolean
+  timestamp: Date
+}
+
+export default function AgentRecommender({ onClose, onRequestCustom }: AgentRecommenderProps) {
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: '1',
+      text: "Hi! I'm your AI agent recommender. I can help you find the perfect agent for your business needs. What are you looking to accomplish?",
+      isUser: false,
+      timestamp: new Date()
+    }
+  ])
+  const [inputValue, setInputValue] = useState('')
+  const [isTyping, setIsTyping] = useState(false)
+
+  const handleSendMessage = async () => {
+    if (!inputValue.trim()) return
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: inputValue,
+      isUser: true,
+      timestamp: new Date()
+    }
+
+    setMessages(prev => [...prev, userMessage])
+    setInputValue('')
+    setIsTyping(true)
+
+    // Simulate AI response
+    setTimeout(() => {
+      const response = generateRecommendation(inputValue)
+      const aiMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: response,
+        isUser: false,
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, aiMessage])
+      setIsTyping(false)
+    }, 1500)
+  }
+
+  const generateRecommendation = (userInput: string): string => {
+    const input = userInput.toLowerCase()
+    
+    if (input.includes('social') || input.includes('marketing') || input.includes('post')) {
+      return "Based on your needs, I recommend the **Social Media Manager** agent! It includes content creation, scheduling, and analytics. Perfect for businesses looking to boost their social media presence. Would you like to see more details?"
+    } else if (input.includes('customer') || input.includes('support') || input.includes('help')) {
+      return "I think the **Customer Support Agent** would be perfect for you! It handles 24/7 support with chatbots, ticket management, and knowledge base maintenance. Great for improving customer satisfaction."
+    } else if (input.includes('data') || input.includes('analytics') || input.includes('report')) {
+      return "The **Data Analyst** agent sounds like what you need! It processes data, generates reports, and identifies trends. Ideal for data-driven decision making."
+    } else if (input.includes('hr') || input.includes('human') || input.includes('employee')) {
+      return "Consider the **HR Assistant** agent! It handles recruitment, onboarding, and benefits management. Perfect for streamlining HR processes."
+    } else if (input.includes('project') || input.includes('manage') || input.includes('team')) {
+      return "The **Project Manager** agent could be your solution! It tracks tasks, coordinates teams, and manages resources. Great for keeping projects on track."
+    } else if (input.includes('email') || input.includes('newsletter') || input.includes('campaign')) {
+      return "The **Email Marketer** agent might be perfect! It creates content, manages lists, and optimizes campaigns. Excellent for email marketing automation."
+    } else {
+      return "I'm not sure I have the perfect agent for your specific needs. Would you like me to help you request a custom agent instead? I can guide you through the process!"
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSendMessage()
+    }
+  }
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <motion.div
+          className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col"
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.9, opacity: 0 }}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between p-6 border-b border-secondary-200">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full flex items-center justify-center">
+                <Bot className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-secondary-900">AI Agent Recommender</h2>
+                <p className="text-sm text-secondary-500">Let me help you find the perfect agent</p>
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-secondary-100 rounded-lg transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Chat Messages */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+            {messages.map((message) => (
+              <motion.div
+                key={message.id}
+                className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <div
+                  className={`max-w-[80%] p-4 rounded-2xl ${
+                    message.isUser
+                      ? 'bg-primary-600 text-white'
+                      : 'bg-secondary-100 text-secondary-900'
+                  }`}
+                >
+                  <p className="text-sm leading-relaxed">{message.text}</p>
+                </div>
+              </motion.div>
+            ))}
+            
+            {isTyping && (
+              <motion.div
+                className="flex justify-start"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <div className="bg-secondary-100 text-secondary-900 p-4 rounded-2xl">
+                  <div className="flex space-x-2">
+                    <div className="w-2 h-2 bg-secondary-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-secondary-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-secondary-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </div>
+
+          {/* Input Area */}
+          <div className="p-6 border-t border-secondary-200">
+            <div className="flex space-x-4">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Describe what you need help with..."
+                className="flex-1 px-4 py-3 border border-secondary-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              />
+              <button
+                onClick={handleSendMessage}
+                disabled={!inputValue.trim() || isTyping}
+                className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <Send className="w-5 h-5" />
+              </button>
+            </div>
+            
+            {/* Custom Agent Request CTA */}
+            <div className="mt-4 text-center">
+              <button
+                onClick={onRequestCustom}
+                className="inline-flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-medium transition-colors"
+              >
+                <span>Need something custom?</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  )
+} 
