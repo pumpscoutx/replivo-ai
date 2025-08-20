@@ -29,9 +29,9 @@ export default function Header({ onLogoClick, onProgressTracker, onSignIn, onGet
 
 						{/* Desktop Navigation */}
 						<nav className="hidden md:flex items-center gap-8">
-							<a href="#pricing" className="text-white/70 hover:text-white transition-colors">Pricing</a>
-							<a href="#agents" className="text-white/70 hover:text-white transition-colors">Agents</a>
-							<a href="#request" className="text-white/70 hover:text-white transition-colors">Request Agent</a>
+							<a href="/find-agent" className="text-white/70 hover:text-white transition-colors">Agents</a>
+							<a href="/find-agent" className="text-white/70 hover:text-white transition-colors">Pricing</a>
+							<a href="/request-agent" className="text-white/70 hover:text-white transition-colors">Request Agent</a>
 							<a href="#support" className="text-white/70 hover:text-white transition-colors">Support</a>
 						</nav>
 
