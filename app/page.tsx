@@ -74,7 +74,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="text-left mb-12 card-glass-dark p-12">
           <h1 className="font-clash text-5xl md:text-6xl text-white mb-4">Hire Your Digital Team</h1>
-          <p className="text-lg text-white/75 mb-8 max-w-2xl font-inter">Smart business agents that work like humans—available instantly.</p>
+          <p className="text-lg text-white/75 mb-8 max-w-2xl font-sans">Smart business agents that work like humans—available instantly.</p>
           <div className="flex gap-4 items-center">
             <a href="#agents" className="btn-white">Hire Now</a>
             <button onClick={() => setShowRequestor(true)} className="btn-outline-white">Request Custom Agent</button>

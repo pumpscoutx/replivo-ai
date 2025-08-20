@@ -39,14 +39,14 @@ export default function Header({ onLogoClick, onProgressTracker, onSignIn, onGet
 						<div className="hidden md:flex items-center gap-4">
 							<button 
 								onClick={onProgressTracker || (() => setShowProgressTracker(true))}
-								className="text-white/70 hover:text-white transition-colors flex items-center gap-2 font-inter"
+								className="text-white/70 hover:text-white transition-colors flex items-center gap-2 font-sans"
 							>
 								<span>📊</span>
 								<span>Progress</span>
 							</button>
 							<button 
 								onClick={onSignIn}
-								className="text-white/70 hover:text-white transition-colors font-inter"
+								className="text-white/70 hover:text-white transition-colors font-sans"
 							>
 								Sign In
 							</button>
