@@ -5,6 +5,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -46,6 +47,12 @@ module.exports = {
           700: '#15803d',
           800: '#166534',
           900: '#14532d',
+        },
+        neon: {
+          400: '#34d399',
+          500: '#10b981',
+          600: '#059669',
+          700: '#047857',
         }
       },
       fontFamily: {
@@ -54,6 +61,9 @@ module.exports = {
         oxona: ['Orbitron', 'Oxona Caps', 'monospace'],
         'better-days': ['Dancing Script', 'Better Days', 'cursive'],
         'big-slant': ['Anton', 'BIG Slant Black UltExp', 'sans-serif'],
+        'space-grotesk': ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+        'saira': ['Saira', 'Inter', 'system-ui', 'sans-serif'],
+        'teko': ['Teko', 'Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         'xs': ['0.75rem', { lineHeight: '1rem' }],
@@ -104,6 +114,7 @@ module.exports = {
         'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
         'medium': '0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
         'large': '0 10px 40px -10px rgba(0, 0, 0, 0.15), 0 2px 10px -2px rgba(0, 0, 0, 0.05)',
+        'neon': '0 0 0 1px rgba(16, 185, 129, 0.35), 0 0 30px rgba(16, 185, 129, 0.45)'
       },
     },
   },
