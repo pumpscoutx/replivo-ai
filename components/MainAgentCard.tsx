@@ -80,33 +80,13 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
         </div>
 
         {/* Moving Task Preview */}
-        <div className="relative h-20 mb-6 overflow-hidden rounded-lg bg-gradient-to-r from-neutral-900 to-neutral-800">
-          <div
-            className={`absolute inset-0 flex items-center px-4 transition-transform duration-700 ${
-              isHovered ? 'transform -translate-x-4' : ''
-            }`}
-          >
-            <div className="flex space-x-4">
-              {agent.subAgents.map((subAgent, index) => (
-                <div
-                  key={subAgent.id}
-                  className={`flex items-center space-x-3 bg-white/5 backdrop-blur-sm px-4 py-3 rounded-xl border border-white/10 transition-all duration-500 ${
-                    isHovered ? 'opacity-100 transform translate-y-0 scale-105' : 'opacity-80 transform translate-y-1 scale-100'
-                  }`}
-                  style={{ transitionDelay: `${index * 150}ms` }}
-                >
-                  <img 
-                    src={subAgent.profileImage} 
-                    alt={subAgent.name}
-                    className="w-8 h-8 rounded-full object-cover border border-white/20"
-                  />
-                  <div className="flex flex-col">
-                    <span className="text-sm font-semibold text-white font-sans">{subAgent.name}</span>
-                    <span className="text-xs text-white/70 font-sans">{subAgent.task}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+        <div className="relative h-14 mb-6 overflow-hidden rounded-lg bg-gradient-to-r from-neutral-900 to-neutral-800 marquee">
+          <div className="marquee__inner px-4">
+            {[...agent.subAgents, ...agent.subAgents].map((subAgent, index) => (
+              <span key={`${subAgent.id}-${index}`} className="text-sm text-white/80 bg-white/10 border border-white/10 rounded-full px-3 py-1">
+                {subAgent.task}
+              </span>
+            ))}
           </div>
         </div>
 

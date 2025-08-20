@@ -148,3 +148,26 @@
     font-family: 'Clash Display', 'Space Grotesk', 'Inter', system-ui, sans-serif;
   }
 } 
+
+/* Marquee utilities */
+.marquee {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+.marquee__inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee-left 20s linear infinite;
+}
+.marquee--slow .marquee__inner {
+  animation-duration: 35s;
+}
+
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+} 

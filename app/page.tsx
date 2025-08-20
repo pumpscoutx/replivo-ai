@@ -83,10 +83,14 @@ export default function Home() {
 
         {/* Trusted By Logos */}
         <section className="mb-20">
-          <div className="flex flex-wrap items-center gap-6 opacity-80">
-            {['stripe','hubspot','shopify','zapier','notion','intercom','webflow','airtable'].map((name) => (
-              <div key={name} className="h-8 w-auto text-white/70 bg-white/10 border border-white/10 rounded-md px-3 py-1 capitalize">{name}</div>
-            ))}
+          <div className="marquee marquee--slow opacity-80">
+            <div className="marquee__inner">
+              {['stripe','hubspot','shopify','zapier','notion','intercom','webflow','airtable','stripe','hubspot','shopify','zapier','notion','intercom','webflow','airtable'].map((name, idx) => (
+                <div key={`${name}-${idx}`} className="h-8 w-auto text-white/70 bg-white/10 border border-white/10 rounded-md px-3 py-1 capitalize">
+                  {name}
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
