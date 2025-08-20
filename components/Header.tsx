@@ -24,9 +24,6 @@ export default function Header({ onLogoClick, onProgressTracker, onSignIn, onGet
 							className="flex items-center gap-3 cursor-pointer"
 							onClick={onLogoClick}
 						>
-							<div className="w-9 h-9 rounded-lg bg-gradient-to-br from-neon-600/30 to-neon-400/20 ring-neon flex items-center justify-center">
-								<span className="text-neon-400">●</span>
-							</div>
 							<span className="text-2xl font-space-grotesk tracking-wide">nano</span>
 						</div>
 
@@ -55,7 +52,7 @@ export default function Header({ onLogoClick, onProgressTracker, onSignIn, onGet
 							</button>
 							<button 
 								onClick={onGetStarted}
-								className="px-4 py-2 rounded-lg bg-gradient-to-r from-neon-600 to-neon-400 text-black font-space-grotesk shadow-neon"
+								className="px-4 py-2 rounded-lg bg-white text-black font-space-grotesk"
 							>
 								Get Started
 							</button>
@@ -92,7 +89,7 @@ export default function Header({ onLogoClick, onProgressTracker, onSignIn, onGet
 									<button className="text-white/70 hover:text-white transition-colors block w-full text-left mb-2">
 										Sign In
 									</button>
-									<button className="w-full px-4 py-2 rounded-lg bg-gradient-to-r from-neon-600 to-neon-400 text-black font-space-grotesk shadow-neon">
+									<button className="w-full px-4 py-2 rounded-lg bg-white text-black font-space-grotesk">
 										Get Started
 									</button>
 								</div>
