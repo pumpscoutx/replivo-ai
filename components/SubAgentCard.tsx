@@ -41,13 +41,8 @@ export default function SubAgentCard({ subAgent, onAdd }: SubAgentCardProps) {
     return gradients[hash];
   };
 
-  const getSubAgentImage = (category?: string) => {
-    const imageMap: { [key: string]: string } = {
-      "Marketing": "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250",
-      "Support": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250",
-      "Sales": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250"
-    };
-    return imageMap[category || "Marketing"] || subAgent.profileImage || "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250";
+  const getSubAgentImage = () => {
+    return subAgent.profileImage || "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250";
   };
 
   return (
@@ -75,41 +70,62 @@ export default function SubAgentCard({ subAgent, onAdd }: SubAgentCardProps) {
         >
           <div className="text-white text-sm">{subAgent.icon}</div>
         </motion.div>
+        
+        {/* Status Badge */}
+        <div className="absolute top-3 right-3">
+          <div className={`w-3 h-3 rounded-full ${getStatusColor()} animate-pulse`}></div>
+        </div>
       </div>
 
       <div className="p-5">
-        <h4 className="text-lg font-neiko font-bold text-white mb-2">{subAgent.name.toUpperCase()}</h4>
+        <h4 className="text-lg font-bold text-white mb-2">{subAgent.name}</h4>
         <p className="text-sm text-gray-400 mb-4 leading-relaxed">{subAgent.description}</p>
       
-      {/* Animated task preview */}
-      {subAgent.task && (
-        <motion.div 
-          className="bg-gray-50 rounded-lg p-3 mb-4 text-xs"
-          initial={{ opacity: 0.8 }}
-          animate={{ opacity: isHovered ? 1 : 0.8 }}
-        >
-          <div className="flex items-center text-secondary">
-            <motion.i 
-              className={`fas fa-circle ${getStatusColor()} mr-2 text-xs`}
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            />
-            <span>{subAgent.task}</span>
+        {/* Task Display */}
+        {subAgent.task && (
+          <motion.div 
+            className="bg-gray-700/50 rounded-lg p-3 mb-4 text-xs border border-gray-600/30"
+            initial={{ opacity: 0.8 }}
+            animate={{ opacity: isHovered ? 1 : 0.8 }}
+          >
+            <div className="flex items-center text-gray-300">
+              <motion.i 
+                className={`fas fa-circle ${getStatusColor()} mr-2 text-xs`}
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+              <span className="text-sm">{subAgent.task}</span>
+            </div>
+          </motion.div>
+        )}
+        
+        {/* Rating and Price */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-2">
+            <div className="flex items-center">
+              <span className="text-yellow-400">★</span>
+              <span className="ml-1 text-sm font-semibold text-white">{subAgent.rating}</span>
+            </div>
+            <span className="text-xs text-gray-400">({subAgent.reviews} reviews)</span>
           </div>
-        </motion.div>
-      )}
-      
-        <div className="flex justify-between items-center">
-          <div>
-            <span className="text-xl font-neiko font-black text-white">{formatPrice(subAgent.price)}</span>
+          <div className="text-right">
+            <span className="text-xl font-bold text-white">{formatPrice(subAgent.price)}</span>
             <span className="text-gray-400 text-sm font-medium">/mo</span>
           </div>
+        </div>
+        
+        <div className="flex justify-between items-center">
           <Button 
             onClick={() => onAdd?.(subAgent)}
-            className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2 rounded-lg text-sm font-neiko font-bold shadow-lg transition-all transform hover:scale-105 border border-gray-700"
+            className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
           >
             <i className="fas fa-plus mr-1"></i>
-            ADD
+            Add to Cart
+          </Button>
+          <Button 
+            className="bg-white text-gray-900 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
+          >
+            Hire Now
           </Button>
         </div>
       </div>

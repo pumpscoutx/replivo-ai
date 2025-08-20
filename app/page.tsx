@@ -111,6 +111,164 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Features Section */}
+        <section className="mb-20 card-glass-dark p-8">
+          <h2 className="text-3xl font-space-grotesk text-white mb-8 text-center">
+            Why Choose Our AI Agents?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="text-center p-6 rounded-xl bg-white/5 border border-white/10">
+              <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🚀</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">24/7 Availability</h3>
+              <p className="text-white/70">Our AI agents work around the clock, never taking breaks or vacations.</p>
+            </div>
+            <div className="text-center p-6 rounded-xl bg-white/5 border border-white/10">
+              <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🧠</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Continuous Learning</h3>
+              <p className="text-white/70">Agents improve over time, adapting to your business needs and preferences.</p>
+            </div>
+            <div className="text-center p-6 rounded-xl bg-white/5 border border-white/10">
+              <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🔒</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Enterprise Security</h3>
+              <p className="text-white/70">Bank-level security with SOC 2 compliance and end-to-end encryption.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="mb-20 card-glass-dark p-8">
+          <h2 className="text-3xl font-space-grotesk text-white mb-8 text-center">
+            What Our Clients Say
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="p-6 rounded-xl bg-white/5 border border-white/10">
+              <div className="flex items-center mb-4">
+                <div className="flex text-yellow-400">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <span className="ml-2 text-white/70">5.0</span>
+              </div>
+              <p className="text-white/80 mb-4">"The Marketing Agent transformed our social media presence. We've seen a 300% increase in engagement!"</p>
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-white/20 rounded-full mr-3"></div>
+                <div>
+                  <div className="text-white font-medium">Sarah Chen</div>
+                  <div className="text-white/60 text-sm">CEO, TechStart</div>
+                </div>
+              </div>
+            </div>
+            <div className="p-6 rounded-xl bg-white/5 border border-white/10">
+              <div className="flex items-center mb-4">
+                <div className="flex text-yellow-400">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <span className="ml-2 text-white/70">5.0</span>
+              </div>
+              <p className="text-white/80 mb-4">"Customer support is now handled 24/7. Our response time went from hours to minutes."</p>
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-white/20 rounded-full mr-3"></div>
+                <div>
+                  <div className="text-white font-medium">Marcus Rodriguez</div>
+                  <div className="text-white/60 text-sm">CTO, GrowthCorp</div>
+                </div>
+              </div>
+            </div>
+            <div className="p-6 rounded-xl bg-white/5 border border-white/10">
+              <div className="flex items-center mb-4">
+                <div className="flex text-yellow-400">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <span className="ml-2 text-white/70">5.0</span>
+              </div>
+              <p className="text-white/80 mb-4">"The Sales Agent helped us close 40% more deals in the first quarter. Incredible ROI!"</p>
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-white/20 rounded-full mr-3"></div>
+                <div>
+                  <div className="text-white font-medium">Emma Johnson</div>
+                  <div className="text-white/60 text-sm">VP Sales, ScaleUp</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing Section */}
+        <section className="mb-20 card-glass-dark p-8">
+          <h2 className="text-3xl font-space-grotesk text-white mb-8 text-center">
+            Simple, Transparent Pricing
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 rounded-xl bg-white/5 border border-white/10 text-center">
+              <h3 className="text-xl font-bold text-white mb-4">Starter</h3>
+              <div className="text-3xl font-bold text-white mb-2">$99</div>
+              <div className="text-white/60 mb-6">per month</div>
+              <ul className="text-white/80 text-sm mb-6 space-y-2">
+                <li>• 1 AI Agent</li>
+                <li>• Basic Support</li>
+                <li>• Standard Features</li>
+              </ul>
+              <button className="w-full py-2 px-4 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors">
+                Get Started
+              </button>
+            </div>
+            <div className="p-6 rounded-xl bg-white/10 border border-white/20 text-center relative">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                <span className="bg-white text-gray-900 px-3 py-1 rounded-full text-xs font-medium">Most Popular</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-4">Professional</h3>
+              <div className="text-3xl font-bold text-white mb-2">$299</div>
+              <div className="text-white/60 mb-6">per month</div>
+              <ul className="text-white/80 text-sm mb-6 space-y-2">
+                <li>• 3 AI Agents</li>
+                <li>• Priority Support</li>
+                <li>• Advanced Features</li>
+                <li>• Custom Integrations</li>
+              </ul>
+              <button className="w-full py-2 px-4 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-colors font-medium">
+                Get Started
+              </button>
+            </div>
+            <div className="p-6 rounded-xl bg-white/5 border border-white/10 text-center">
+              <h3 className="text-xl font-bold text-white mb-4">Enterprise</h3>
+              <div className="text-3xl font-bold text-white mb-2">$999</div>
+              <div className="text-white/60 mb-6">per month</div>
+              <ul className="text-white/80 text-sm mb-6 space-y-2">
+                <li>• Unlimited Agents</li>
+                <li>• 24/7 Support</li>
+                <li>• Custom Development</li>
+                <li>• Dedicated Manager</li>
+              </ul>
+              <button className="w-full py-2 px-4 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors">
+                Contact Sales
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="mb-20 card-glass-dark p-8 text-center">
+          <h2 className="text-3xl font-space-grotesk text-white mb-4">
+            Ready to Transform Your Business?
+          </h2>
+          <p className="text-white/70 mb-6 max-w-2xl mx-auto">
+            Join thousands of companies already using AI agents to automate their workflows and scale their operations.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button onClick={() => setShowRequestor(true)} className="btn-white">
+              Request Custom Agent
+            </button>
+            <button className="btn-outline-white">
+              Schedule Demo
+            </button>
+          </div>
+        </section>
+
         {/* Find an Agent Section with embedded chatbot */}
         <section className="mb-24 card-glass-dark p-8">
           <h2 className="text-3xl font-space-grotesk text-white mb-4">Find the perfect agent for your business.</h2>

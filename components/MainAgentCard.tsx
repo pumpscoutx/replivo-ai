@@ -17,9 +17,30 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
   const [showReviews, setShowReviews] = useState(false)
   const router = useRouter()
 
+  const formatPrice = (price: number) => {
+    return `$${price}`
+  }
+
+  const renderStars = (rating: number) => {
+    const stars = []
+    const fullStars = Math.floor(rating)
+    const hasHalfStar = (rating % 1) >= 0.5
+
+    for (let i = 0; i < 5; i++) {
+      if (i < fullStars) {
+        stars.push(<i key={i} className="fas fa-star text-yellow-400"></i>)
+      } else if (i === fullStars && hasHalfStar) {
+        stars.push(<i key={i} className="fas fa-star-half-alt text-yellow-400"></i>)
+      } else {
+        stars.push(<i key={i} className="far fa-star text-yellow-400"></i>)
+      }
+    }
+    return stars
+  }
+
   return (
     <div
-      className="agent-card group cursor-pointer relative overflow-hidden"
+      className="agent-card bg-gray-800 rounded-3xl shadow-xl hover:shadow-2xl border border-gray-700 group cursor-pointer relative overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-2"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -37,22 +58,22 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
               <div className="text-4xl">{agent.icon}</div>
             </div>
             <div className="text-right">
-              <div className="text-xl font-oxona font-bold">${agent.price}</div>
-              <div className="text-xs opacity-90 font-sans">per month</div>
+              <div className="text-xl font-bold text-white">{formatPrice(agent.price)}</div>
+              <div className="text-xs opacity-90">per month</div>
             </div>
           </div>
-          <h3 className="text-lg font-big-slant mb-2">{agent.name}</h3>
-          <p className="text-sm opacity-90 mb-3 font-sans">{agent.description}</p>
+          <h3 className="text-lg font-bold mb-2">{agent.name}</h3>
+          <p className="text-sm opacity-90 mb-3">{agent.description}</p>
           <div className="flex items-center justify-between">
-            <span className="px-3 py-1 bg-white/10 rounded-full text-sm font-medium font-oxona">
+            <span className="px-3 py-1 bg-white/10 rounded-full text-sm font-medium">
               {agent.category}
             </span>
             <div className="flex items-center space-x-2">
               <div className="flex items-center">
                 <span className="text-white">★</span>
-                <span className="ml-1 text-sm font-semibold font-sans">{agent.rating}</span>
+                <span className="ml-1 text-sm font-semibold">{agent.rating}</span>
               </div>
-              <span className="text-sm opacity-90 font-sans">({agent.reviews} reviews)</span>
+              <span className="text-sm opacity-90">({agent.reviews} reviews)</span>
             </div>
           </div>
         </div>
@@ -64,6 +85,7 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
         <div className="hidden group-hover:block mb-4">
           <p className="text-sm text-white/70 italic">{agent.howItWorks.slice(0, 140)}{agent.howItWorks.length > 140 ? '…' : ''}</p>
         </div>
+        
         {/* Ratings and Reviews */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-2">
@@ -100,18 +122,18 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
                 e.stopPropagation()
                 onViewSubAgents?.(agent.subAgents)
               }}
-              className="px-3 py-2 rounded-lg border border-white/20 text-sm font-sans text-white/80 hover:bg-white/10"
+              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm font-medium transition-colors"
             >
               View Sub-Agents
             </button>
             <button 
               onClick={(e) => {
                 e.stopPropagation()
-                setShowHowItWorks(!showHowItWorks)
+                onHire?.(agent)
               }}
-              className="px-3 py-2 rounded-lg border border-white/20 text-sm font-sans text-white/80 hover:bg-white/10"
+              className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm font-medium transition-colors"
             >
-              How It Works
+              Hire Bundle
             </button>
           </div>
           <button 
@@ -119,52 +141,17 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
               e.stopPropagation()
               router.push(`/agents/${agent.id}`)
             }}
-            className="px-4 py-2 rounded-lg bg-white text-black flex items-center space-x-2 group font-oxona"
+            className="px-6 py-2 bg-white text-gray-900 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
           >
-            <span>Hire Now</span>
-            <span className="text-lg transition-transform duration-200 group-hover:translate-x-1">→</span>
+            Hire Now
           </button>
         </div>
       </div>
 
-      {/* How It Works Overlay */}
-      {showHowItWorks && (
-        <div className="absolute inset-0 bg-black/80 backdrop-blur-sm rounded-xl z-20 flex items-center justify-center p-6">
-          <div className="bg-black border border-white/10 rounded-xl p-6 max-w-sm">
-            <div className="flex items-center justify-between mb-4">
-              <h4 className="text-lg font-big-slant text-white">How {agent.name} Works</h4>
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setShowHowItWorks(false)
-                }}
-                className="text-white/60 hover:text-white"
-              >
-                ×
-              </button>
-            </div>
-            <p className="text-sm text-white/70 mb-4 font-sans">{agent.howItWorks}</p>
-            <div className="space-y-2">
-              <h5 className="text-sm font-semibold text-white font-oxona">Key Features:</h5>
-              <ul className="text-xs text-white/70 space-y-1 font-sans">
-                {agent.features.map((feature, index) => (
-                  <li key={index} className="flex items-center space-x-2">
-                    <span className="text-white">•</span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Reviews Modal */}
+      {/* Agent Reviews Modal */}
       {showReviews && (
         <AgentReviews
-          agentName={agent.name}
-          rating={agent.rating}
-          reviews={agent.reviews}
+          agent={agent}
           onClose={() => setShowReviews(false)}
         />
       )}
