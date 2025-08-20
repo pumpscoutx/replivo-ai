@@ -390,3 +390,21 @@
     radial-gradient(900px 500px at 80% 15%, rgba(34,211,238,0.18), rgba(0,0,0,0) 62%),
     linear-gradient(180deg, #0b0f1a 0%, #070a12 40%, #05070d 100%);
 } 
+
+/* Agents section backdrop (monochrome) */
+.bg-agents-section {
+  position: relative;
+  background:
+    radial-gradient(900px 500px at 15% 0%, rgba(255,255,255,0.08), rgba(0,0,0,0) 60%),
+    radial-gradient(800px 480px at 85% 10%, rgba(255,255,255,0.06), rgba(0,0,0,0) 62%),
+    linear-gradient(180deg, #0a0c12 0%, #07090f 60%, #06070c 100%);
+}
+.bg-agents-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 2px 2px;
+  opacity: 0.15;
+  pointer-events: none;
+} 

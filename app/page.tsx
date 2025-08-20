@@ -91,7 +91,7 @@ export default function Home() {
         </section>
 
         {/* Main Agents Grid */}
-        <section id="agents" className="mb-20 card-glass-dark p-8">
+        <section id="agents" className="mb-20 card-glass-dark p-8 bg-agents-section">
           <h2 className="text-3xl font-space-grotesk text-white mb-8 text-left">
             What we do
           </h2>
