@@ -10,10 +10,11 @@ interface MainAgentCardProps {
 
 export default function MainAgentCard({ agent, onViewSubAgents }: MainAgentCardProps) {
   const [isHovered, setIsHovered] = useState(false)
+  const [showHowItWorks, setShowHowItWorks] = useState(false)
 
   return (
     <div
-      className="agent-card group cursor-pointer"
+      className="agent-card group cursor-pointer relative overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -22,7 +23,14 @@ export default function MainAgentCard({ agent, onViewSubAgents }: MainAgentCardP
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-4">
-            <div className="text-4xl">{agent.icon}</div>
+            <div className="flex items-center space-x-3">
+              <img 
+                src={agent.profileImage} 
+                alt={agent.name}
+                className="w-12 h-12 rounded-full border-2 border-white/30 object-cover shadow-lg"
+              />
+              <div className="text-4xl">{agent.icon}</div>
+            </div>
             <div className="text-right">
               <div className="text-2xl font-oxona font-bold">${agent.price}</div>
               <div className="text-sm opacity-90 font-sans">per month</div>
@@ -63,23 +71,30 @@ export default function MainAgentCard({ agent, onViewSubAgents }: MainAgentCardP
         </div>
 
         {/* Moving Task Preview */}
-        <div className="relative h-16 mb-6 overflow-hidden rounded-lg bg-neutral-50">
+        <div className="relative h-20 mb-6 overflow-hidden rounded-lg bg-gradient-to-r from-neutral-50 to-neutral-100">
           <div
-            className={`absolute inset-0 flex items-center px-4 transition-transform duration-500 ${
-              isHovered ? 'transform -translate-x-2' : ''
+            className={`absolute inset-0 flex items-center px-4 transition-transform duration-700 ${
+              isHovered ? 'transform -translate-x-4' : ''
             }`}
           >
             <div className="flex space-x-4">
               {agent.subAgents.map((subAgent, index) => (
                 <div
                   key={subAgent.id}
-                  className={`flex items-center space-x-2 bg-white px-3 py-2 rounded-lg shadow-sm border border-neutral-200 transition-all duration-300 ${
-                    isHovered ? 'opacity-100 transform translate-y-0' : 'opacity-70 transform translate-y-2'
+                  className={`flex items-center space-x-3 bg-white/90 backdrop-blur-sm px-4 py-3 rounded-xl shadow-medium border border-white/50 transition-all duration-500 ${
+                    isHovered ? 'opacity-100 transform translate-y-0 scale-105' : 'opacity-80 transform translate-y-1 scale-100'
                   }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
+                  style={{ transitionDelay: `${index * 150}ms` }}
                 >
-                  <span className="text-lg">{subAgent.icon}</span>
-                  <span className="text-sm text-neutral-700 font-medium">{subAgent.task}</span>
+                  <img 
+                    src={subAgent.profileImage} 
+                    alt={subAgent.name}
+                    className="w-8 h-8 rounded-full object-cover border border-white/50"
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold text-neutral-800 font-sans">{subAgent.name}</span>
+                    <span className="text-xs text-neutral-600 font-sans">{subAgent.task}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -102,12 +117,50 @@ export default function MainAgentCard({ agent, onViewSubAgents }: MainAgentCardP
             >
               View Sub-Agents
             </button>
-            <button className="button-ghost text-sm font-sans">
-              View Details
+            <button 
+              onClick={(e) => {
+                e.stopPropagation()
+                setShowHowItWorks(!showHowItWorks)
+              }}
+              className="button-ghost text-sm font-sans"
+            >
+              How It Works
             </button>
           </div>
         </div>
       </div>
+
+      {/* How It Works Overlay */}
+      {showHowItWorks && (
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-sm rounded-xl z-20 flex items-center justify-center p-6">
+          <div className="bg-white rounded-xl p-6 max-w-sm">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="text-lg font-big-slant text-neutral-900">How {agent.name} Works</h4>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setShowHowItWorks(false)
+                }}
+                className="text-neutral-500 hover:text-neutral-700"
+              >
+                ×
+              </button>
+            </div>
+            <p className="text-sm text-neutral-600 mb-4 font-sans">{agent.howItWorks}</p>
+            <div className="space-y-2">
+              <h5 className="text-sm font-semibold text-neutral-900 font-oxona">Key Features:</h5>
+              <ul className="text-xs text-neutral-600 space-y-1 font-sans">
+                {agent.features.map((feature, index) => (
+                  <li key={index} className="flex items-center space-x-2">
+                    <span className="text-primary-500">•</span>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 } 

@@ -1,8 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { X, Send, Bot, ArrowRight } from 'lucide-react'
 import { mainAgents } from '@/data/agents'
 
 interface AgentRecommenderProps {
@@ -85,78 +83,61 @@ export default function AgentRecommender({ onClose, onRequestCustom }: AgentReco
   }
 
   return (
-    <AnimatePresence>
-      <motion.div
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
-        <motion.div
-          className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col"
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.9, opacity: 0 }}
-        >
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col animate-scale-in">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-secondary-200">
+          <div className="flex items-center justify-between p-6 border-b border-neutral-200 bg-gradient-to-r from-primary-50 to-accent-50">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full flex items-center justify-center">
-                <Bot className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full flex items-center justify-center shadow-medium">
+                <span className="text-white text-xl">🤖</span>
               </div>
               <div>
-                <h2 className="text-xl font-bold text-secondary-900">AI Agent Recommender</h2>
-                <p className="text-sm text-secondary-500">Let me help you find the perfect agent</p>
+                <h2 className="text-2xl font-big-slant text-neutral-900">AI Agent <span className="font-oxona text-primary-600">Recommender</span></h2>
+                <p className="text-sm text-neutral-600 font-sans">Let me help you find the perfect agent</p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-secondary-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
             >
-              <X className="w-6 h-6" />
+              <span className="text-2xl">×</span>
             </button>
           </div>
 
           {/* Chat Messages */}
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
             {messages.map((message) => (
-              <motion.div
+              <div
                 key={message.id}
-                className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} animate-fade-in`}
               >
                 <div
                   className={`max-w-[80%] p-4 rounded-2xl ${
                     message.isUser
                       ? 'bg-primary-600 text-white'
-                      : 'bg-secondary-100 text-secondary-900'
+                      : 'bg-neutral-100 text-neutral-900'
                   }`}
                 >
-                  <p className="text-sm leading-relaxed">{message.text}</p>
+                  <p className="text-sm leading-relaxed font-sans">{message.text}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
             
             {isTyping && (
-              <motion.div
-                className="flex justify-start"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-              >
-                <div className="bg-secondary-100 text-secondary-900 p-4 rounded-2xl">
+              <div className="flex justify-start animate-fade-in">
+                <div className="bg-neutral-100 text-neutral-900 p-4 rounded-2xl">
                   <div className="flex space-x-2">
-                    <div className="w-2 h-2 bg-secondary-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-secondary-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-secondary-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-neutral-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             )}
           </div>
 
           {/* Input Area */}
-          <div className="p-6 border-t border-secondary-200">
+          <div className="p-6 border-t border-neutral-200">
             <div className="flex space-x-4">
               <input
                 type="text"
@@ -164,14 +145,14 @@ export default function AgentRecommender({ onClose, onRequestCustom }: AgentReco
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Describe what you need help with..."
-                className="flex-1 px-4 py-3 border border-secondary-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="flex-1 px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent font-sans"
               />
               <button
                 onClick={handleSendMessage}
                 disabled={!inputValue.trim() || isTyping}
-                className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-oxona"
               >
-                <Send className="w-5 h-5" />
+                <span>Send</span>
               </button>
             </div>
             
@@ -179,15 +160,15 @@ export default function AgentRecommender({ onClose, onRequestCustom }: AgentReco
             <div className="mt-4 text-center">
               <button
                 onClick={onRequestCustom}
-                className="inline-flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-medium transition-colors"
+                className="inline-flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-medium transition-colors font-sans"
               >
                 <span>Need something custom?</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>→</span>
               </button>
             </div>
           </div>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+        </div>
+      </div>
+    </div>
   )
 } 

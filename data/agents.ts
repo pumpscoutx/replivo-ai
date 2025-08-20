@@ -1,12 +1,13 @@
 export interface SubAgent {
   id: string
   name: string
-  description: string
   task: string
+  icon: string
   rating: number
   reviews: number
   price: number
-  icon: string
+  description: string
+  profileImage: string
 }
 
 export interface MainAgent {
@@ -14,270 +15,199 @@ export interface MainAgent {
   name: string
   description: string
   category: string
+  price: number
   rating: number
   reviews: number
-  price: number
-  subAgents: SubAgent[]
   icon: string
   color: string
+  subAgents: SubAgent[]
+  profileImage: string
+  howItWorks: string
+  features: string[]
 }
 
 export const mainAgents: MainAgent[] = [
   {
-    id: 'social-media-manager',
-    name: 'Social Media Manager',
-    description: 'Complete social media management across all platforms',
+    id: '1',
+    name: 'Marketing Master',
+    description: 'Complete marketing automation with AI-powered campaigns, content creation, and analytics.',
     category: 'Marketing',
-    rating: 4.8,
-    reviews: 127,
     price: 299,
-    icon: '📱',
+    rating: 4.8,
+    reviews: 1247,
+    icon: '📈',
     color: 'from-primary-500 to-primary-600',
+    profileImage: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face',
+    howItWorks: 'This agent orchestrates your entire marketing workflow by coordinating specialized sub-agents for content creation, social media management, email campaigns, and analytics. It learns from your brand voice and audience data to optimize performance continuously.',
+    features: [
+      'AI-powered content generation',
+      'Multi-platform social media management',
+      'Email campaign automation',
+      'Real-time analytics and optimization'
+    ],
     subAgents: [
       {
-        id: 'content-creator',
+        id: '1-1',
         name: 'Content Creator',
-        description: 'Creates engaging posts and captions',
-        task: 'Writing creative social media content',
+        task: 'Generates engaging blog posts, social media content, and marketing copy',
+        icon: '✍️',
         rating: 4.9,
-        reviews: 89,
-        price: 99,
-        icon: '✍️'
-      },
-      {
-        id: 'scheduler',
-        name: 'Post Scheduler',
-        description: 'Schedules and optimizes posting times',
-        task: 'Scheduling posts for optimal engagement',
-        rating: 4.7,
-        reviews: 156,
-        price: 79,
-        icon: '📅'
-      },
-      {
-        id: 'analytics',
-        name: 'Analytics Tracker',
-        description: 'Tracks performance and provides insights',
-        task: 'Analyzing social media performance',
-        rating: 4.6,
-        reviews: 203,
+        reviews: 892,
         price: 89,
-        icon: '📊'
+        description: 'Creates compelling content that resonates with your target audience',
+        profileImage: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face'
+      },
+      {
+        id: '1-2',
+        name: 'Social Media Manager',
+        task: 'Manages posting schedules, engagement, and community building',
+        icon: '📱',
+        rating: 4.7,
+        reviews: 654,
+        price: 79,
+        description: 'Handles all social media platforms with smart scheduling and engagement',
+        profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
+      },
+      {
+        id: '1-3',
+        name: 'Email Specialist',
+        task: 'Designs and sends automated email campaigns with personalization',
+        icon: '📧',
+        rating: 4.8,
+        reviews: 445,
+        price: 69,
+        description: 'Creates personalized email sequences that convert',
+        profileImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face'
+      },
+      {
+        id: '1-4',
+        name: 'Analytics Expert',
+        task: 'Tracks performance metrics and provides actionable insights',
+        icon: '📊',
+        rating: 4.9,
+        reviews: 567,
+        price: 99,
+        description: 'Provides deep insights into campaign performance and ROI',
+        profileImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
       }
     ]
   },
   {
-    id: 'customer-support',
-    name: 'Customer Support Agent',
-    description: '24/7 customer service and support automation',
+    id: '2',
+    name: 'Customer Success Pro',
+    description: '24/7 customer support with intelligent ticket routing and satisfaction tracking.',
     category: 'Support',
+    price: 199,
     rating: 4.9,
-    reviews: 234,
-    price: 399,
+    reviews: 2156,
     icon: '🎧',
     color: 'from-accent-500 to-accent-600',
+    profileImage: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face',
+    howItWorks: 'This agent provides round-the-clock customer support by intelligently routing inquiries to the most appropriate sub-agent, learning from interactions to improve response quality and customer satisfaction scores.',
+    features: [
+      '24/7 automated customer support',
+      'Intelligent ticket routing',
+      'Multi-language support',
+      'Customer satisfaction tracking'
+    ],
     subAgents: [
       {
-        id: 'chatbot',
-        name: 'Chatbot',
-        description: 'Handles common customer inquiries',
-        task: 'Responding to customer questions',
+        id: '2-1',
+        name: 'Support Agent',
+        task: 'Handles customer inquiries and provides immediate assistance',
+        icon: '💬',
         rating: 4.8,
-        reviews: 312,
-        price: 149,
-        icon: '🤖'
+        reviews: 1234,
+        price: 59,
+        description: 'Provides friendly and efficient customer support',
+        profileImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face'
       },
       {
-        id: 'ticket-manager',
-        name: 'Ticket Manager',
-        description: 'Organizes and prioritizes support tickets',
-        task: 'Managing support ticket workflow',
+        id: '2-2',
+        name: 'Ticket Router',
+        task: 'Intelligently routes tickets to the right specialist',
+        icon: '🎯',
+        rating: 4.9,
+        reviews: 789,
+        price: 49,
+        description: 'Ensures customers get the right help quickly',
+        profileImage: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face'
+      },
+      {
+        id: '2-3',
+        name: 'Satisfaction Tracker',
+        task: 'Monitors customer satisfaction and identifies improvement areas',
+        icon: '😊',
         rating: 4.7,
-        reviews: 178,
-        price: 129,
-        icon: '🎫'
-      },
-      {
-        id: 'knowledge-base',
-        name: 'Knowledge Base',
-        description: 'Maintains help articles and FAQs',
-        task: 'Updating help documentation',
-        rating: 4.6,
-        reviews: 95,
-        price: 99,
-        icon: '📚'
+        reviews: 456,
+        price: 39,
+        description: 'Tracks and improves customer experience metrics',
+        profileImage: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face'
       }
     ]
   },
   {
-    id: 'data-analyst',
-    name: 'Data Analyst',
-    description: 'Comprehensive data analysis and reporting',
-    category: 'Analytics',
+    id: '3',
+    name: 'Sales Dynamo',
+    description: 'Lead generation, qualification, and conversion optimization with AI insights.',
+    category: 'Sales',
+    price: 399,
     rating: 4.7,
-    reviews: 89,
-    price: 499,
-    icon: '📈',
-    color: 'from-primary-600 to-primary-700',
+    reviews: 892,
+    icon: '💰',
+    color: 'from-purple-500 to-purple-600',
+    profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+    howItWorks: 'This agent transforms your sales process by automatically qualifying leads, nurturing prospects, and optimizing conversion rates through data-driven insights and personalized outreach strategies.',
+    features: [
+      'Automated lead generation and qualification',
+      'Personalized prospect nurturing',
+      'Sales pipeline optimization',
+      'Revenue forecasting and analytics'
+    ],
     subAgents: [
       {
-        id: 'data-processor',
-        name: 'Data Processor',
-        description: 'Cleans and prepares data for analysis',
-        task: 'Processing and cleaning raw data',
+        id: '3-1',
+        name: 'Lead Generator',
+        task: 'Discovers and qualifies potential customers automatically',
+        icon: '🔍',
         rating: 4.8,
-        reviews: 134,
-        price: 159,
-        icon: '🔧'
-      },
-      {
-        id: 'report-generator',
-        name: 'Report Generator',
-        description: 'Creates automated reports and dashboards',
-        task: 'Generating insights and reports',
-        rating: 4.7,
-        reviews: 167,
-        price: 179,
-        icon: '📋'
-      },
-      {
-        id: 'trend-analyzer',
-        name: 'Trend Analyzer',
-        description: 'Identifies patterns and trends in data',
-        task: 'Analyzing data trends and patterns',
-        rating: 4.6,
-        reviews: 112,
-        price: 139,
-        icon: '🔍'
-      }
-    ]
-  },
-  {
-    id: 'hr-assistant',
-    name: 'HR Assistant',
-    description: 'Human resources management and automation',
-    category: 'HR',
-    rating: 4.6,
-    reviews: 67,
-    price: 349,
-    icon: '👥',
-    color: 'from-accent-600 to-accent-700',
-    subAgents: [
-      {
-        id: 'recruiter',
-        name: 'Recruiter',
-        description: 'Screens candidates and manages applications',
-        task: 'Screening job candidates',
-        rating: 4.7,
-        reviews: 89,
+        reviews: 678,
         price: 129,
-        icon: '🎯'
+        description: 'Finds high-quality leads that are ready to buy',
+        profileImage: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face'
       },
       {
-        id: 'onboarding',
-        name: 'Onboarding Specialist',
-        description: 'Manages new employee onboarding process',
-        task: 'Managing employee onboarding',
-        rating: 4.5,
-        reviews: 76,
+        id: '3-2',
+        name: 'Prospect Nurturer',
+        task: 'Builds relationships with prospects through personalized outreach',
+        icon: '🤝',
+        rating: 4.6,
+        reviews: 543,
         price: 109,
-        icon: '🚀'
+        description: 'Nurtures prospects until they\'re ready to purchase',
+        profileImage: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face'
       },
       {
-        id: 'benefits-manager',
-        name: 'Benefits Manager',
-        description: 'Handles benefits administration and questions',
-        task: 'Managing employee benefits',
-        rating: 4.6,
-        reviews: 94,
-        price: 119,
-        icon: '💼'
-      }
-    ]
-  },
-  {
-    id: 'project-manager',
-    name: 'Project Manager',
-    description: 'End-to-end project management and coordination',
-    category: 'Management',
-    rating: 4.8,
-    reviews: 145,
-    price: 449,
-    icon: '📋',
-    color: 'from-primary-700 to-primary-800',
-    subAgents: [
-      {
-        id: 'task-tracker',
-        name: 'Task Tracker',
-        description: 'Monitors task progress and deadlines',
-        task: 'Tracking project tasks and deadlines',
-        rating: 4.8,
-        reviews: 223,
-        price: 139,
-        icon: '✅'
+        id: '3-3',
+        name: 'Conversion Optimizer',
+        task: 'Optimizes sales funnels and improves conversion rates',
+        icon: '📈',
+        rating: 4.9,
+        reviews: 432,
+        price: 149,
+        description: 'Maximizes your sales conversion rates',
+        profileImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
       },
       {
-        id: 'team-coordinator',
-        name: 'Team Coordinator',
-        description: 'Coordinates team communication and meetings',
-        task: 'Coordinating team activities',
+        id: '3-4',
+        name: 'Sales Analyst',
+        task: 'Provides insights and forecasts for sales performance',
+        icon: '📊',
         rating: 4.7,
-        reviews: 167,
-        price: 129,
-        icon: '👥'
-      },
-      {
-        id: 'resource-manager',
-        name: 'Resource Manager',
-        description: 'Manages project resources and budgets',
-        task: 'Managing project resources',
-        rating: 4.6,
-        reviews: 98,
-        price: 119,
-        icon: '💰'
-      }
-    ]
-  },
-  {
-    id: 'email-marketer',
-    name: 'Email Marketer',
-    description: 'Complete email marketing automation and optimization',
-    category: 'Marketing',
-    rating: 4.7,
-    reviews: 112,
-    price: 279,
-    icon: '📧',
-    color: 'from-accent-700 to-accent-800',
-    subAgents: [
-      {
-        id: 'email-writer',
-        name: 'Email Writer',
-        description: 'Creates compelling email content',
-        task: 'Writing engaging email content',
-        rating: 4.8,
-        reviews: 145,
-        price: 99,
-        icon: '✍️'
-      },
-      {
-        id: 'list-manager',
-        name: 'List Manager',
-        description: 'Manages email lists and segmentation',
-        task: 'Managing email subscriber lists',
-        rating: 4.6,
-        reviews: 178,
-        price: 79,
-        icon: '📊'
-      },
-      {
-        id: 'campaign-optimizer',
-        name: 'Campaign Optimizer',
-        description: 'Optimizes email campaigns for better performance',
-        task: 'Optimizing email campaign performance',
-        rating: 4.7,
-        reviews: 134,
+        reviews: 321,
         price: 89,
-        icon: '🎯'
+        description: 'Delivers actionable sales insights and forecasts',
+        profileImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face'
       }
     ]
   }

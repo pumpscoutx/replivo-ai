@@ -29,10 +29,10 @@ export default function SubAgentMarketplace({ subAgents, onClose, onHire }: SubA
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-7xl max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-neutral-200">
+        <div className="flex items-center justify-between p-6 border-b border-neutral-200 bg-gradient-to-r from-primary-50 to-accent-50">
           <div>
-            <h2 className="text-2xl font-bold text-neutral-900">Sub-Agent Marketplace</h2>
-            <p className="text-neutral-600 mt-1">Browse and hire specialized sub-agents</p>
+            <h2 className="text-3xl font-big-slant text-neutral-900">Sub-Agent <span className="font-oxona text-primary-600">Marketplace</span></h2>
+            <p className="text-neutral-600 mt-1 font-sans">Browse and hire specialized sub-agents</p>
           </div>
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
@@ -159,28 +159,34 @@ function SubAgentCard({ agent, onHire, onSelect, isSelected, compact = false }: 
       {/* Agent Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
-          <div className="text-2xl">{agent.icon}</div>
+          <img 
+            src={agent.profileImage} 
+            alt={agent.name}
+            className="w-10 h-10 rounded-full object-cover border-2 border-neutral-200 shadow-sm"
+          />
           <div>
-            <h3 className="font-semibold text-neutral-900">{agent.name}</h3>
-            <p className="text-sm text-neutral-600">{agent.description}</p>
+            <h3 className="font-semibold text-neutral-900 font-sans">{agent.name}</h3>
+            <p className="text-sm text-neutral-600 font-sans">{agent.description}</p>
           </div>
         </div>
         <div className="text-right">
-          <div className="text-lg font-bold text-neutral-900">${agent.price}</div>
-          <div className="text-sm text-neutral-500">per month</div>
+          <div className="text-lg font-bold text-neutral-900 font-oxona">${agent.price}</div>
+          <div className="text-sm text-neutral-500 font-sans">per month</div>
         </div>
       </div>
 
       {/* Task Preview */}
-      <div className="relative h-12 mb-4 overflow-hidden rounded-lg bg-neutral-50">
+      <div className="relative h-14 mb-4 overflow-hidden rounded-lg bg-gradient-to-r from-neutral-50 to-neutral-100">
         <div
           className={`absolute inset-0 flex items-center px-3 transition-transform duration-500 ${
-            isHovered ? 'transform -translate-x-2' : ''
+            isHovered ? 'transform -translate-x-3' : ''
           }`}
         >
-          <div className="flex items-center space-x-2 bg-white px-3 py-2 rounded-lg shadow-sm border border-neutral-200">
-            <span className="text-sm">{agent.icon}</span>
-            <span className="text-sm text-neutral-700 font-medium">{agent.task}</span>
+          <div className="flex items-center space-x-3 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-xl shadow-medium border border-white/50">
+            <span className="text-lg">{agent.icon}</span>
+            <div className="flex flex-col">
+              <span className="text-sm text-neutral-700 font-medium font-sans">{agent.task}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -203,7 +209,7 @@ function SubAgentCard({ agent, onHire, onSelect, isSelected, compact = false }: 
             e.stopPropagation()
             onHire()
           }}
-          className="button-primary flex items-center space-x-2 group"
+          className="button-primary flex items-center space-x-2 group font-oxona"
         >
           <span>Hire Now</span>
           <span className="text-lg transition-transform duration-200 group-hover:translate-x-1">→</span>
