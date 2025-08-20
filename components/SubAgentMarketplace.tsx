@@ -27,47 +27,39 @@ export default function SubAgentMarketplace({ subAgents, onClose, onHire }: SubA
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-7xl max-h-[90vh] flex flex-col">
+      <div className="bg-black border border-white/10 rounded-2xl w-full max-w-7xl max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-neutral-200 bg-gradient-to-r from-primary-50 to-accent-50">
-          <div>
-            <h2 className="text-3xl font-big-slant text-neutral-900">Sub-Agent <span className="font-oxona text-primary-600">Marketplace</span></h2>
-            <p className="text-neutral-600 mt-1 font-sans">Browse and hire specialized sub-agents</p>
+        <div className="flex items-center justify-between p-6 border-b border-white/10">
+          <div className="flex items-center gap-3">
+            <button onClick={onClose} className="px-3 py-2 rounded-lg border border-white/20 text-white/80 hover:bg-white/10">Back to Main Agents</button>
+            <h2 className="text-2xl font-space-grotesk text-white">Sub-Agent Marketplace</h2>
           </div>
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  viewMode === 'grid'
-                    ? 'bg-primary-100 text-primary-700'
-                    : 'text-neutral-600 hover:text-neutral-900'
-                }`}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${viewMode === 'grid' ? 'bg-white text-black border-white' : 'text-white/80 border-white/20 hover:bg-white/10'}`}
               >
                 Grid View
               </button>
               <button
                 onClick={() => setViewMode('compare')}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  viewMode === 'compare'
-                    ? 'bg-primary-100 text-primary-700'
-                    : 'text-neutral-600 hover:text-neutral-900'
-                }`}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${viewMode === 'compare' ? 'bg-white text-black border-white' : 'text-white/80 border-white/20 hover:bg-white/10'}`}
               >
                 Compare ({selectedAgents.length}/3)
               </button>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
+              className="p-2 rounded-lg text-2xl text-white/70 hover:text-white"
             >
-              <span className="text-2xl">×</span>
+              ×
             </button>
           </div>
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-6 text-white">
           {viewMode === 'grid' ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {subAgents.map((agent) => (
@@ -99,10 +91,10 @@ export default function SubAgentMarketplace({ subAgents, onClose, onHire }: SubA
               ) : (
                 <div className="text-center py-12">
                   <div className="text-6xl mb-4">🔍</div>
-                  <h3 className="text-xl font-semibold text-neutral-900 mb-2">
+                  <h3 className="text-xl font-semibold text-white mb-2">
                     Select agents to compare
                   </h3>
-                  <p className="text-neutral-600">
+                  <p className="text-white/70">
                     Choose up to 3 sub-agents to compare their features and pricing
                   </p>
                 </div>
@@ -110,7 +102,7 @@ export default function SubAgentMarketplace({ subAgents, onClose, onHire }: SubA
 
               {/* Available Agents */}
               <div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-4">
+                <h3 className="text-lg font-semibold text-white mb-4">
                   Available Sub-Agents
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -149,9 +141,9 @@ function SubAgentCard({ agent, onHire, onSelect, isSelected, compact = false }: 
 
   return (
     <div
-      className={`card-minimal group cursor-pointer transition-all duration-300 ${
-        isSelected ? 'ring-2 ring-primary-500 bg-primary-50' : ''
-      } ${compact ? 'p-4' : 'p-6'}`}
+      className={`group cursor-pointer transition-all duration-300 ${
+        isSelected ? 'ring-2 ring-white bg-white/5' : 'border border-white/10 bg-white/5'
+      } rounded-xl ${compact ? 'p-4' : 'p-6'}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onSelect}
@@ -162,30 +154,30 @@ function SubAgentCard({ agent, onHire, onSelect, isSelected, compact = false }: 
           <img 
             src={agent.profileImage} 
             alt={agent.name}
-            className="w-10 h-10 rounded-full object-cover border-2 border-neutral-200 shadow-sm"
+            className="w-10 h-10 rounded-full object-cover border-2 border-white/20"
           />
           <div>
-            <h3 className="font-semibold text-neutral-900 font-sans">{agent.name}</h3>
-            <p className="text-sm text-neutral-600 font-sans">{agent.description}</p>
+            <h3 className="font-semibold text-white font-sans">{agent.name}</h3>
+            <p className="text-sm text-white/70 font-sans">{agent.description}</p>
           </div>
         </div>
         <div className="text-right">
-          <div className="text-lg font-bold text-neutral-900 font-oxona">${agent.price}</div>
-          <div className="text-sm text-neutral-500 font-sans">per month</div>
+          <div className="text-lg font-bold text-white font-oxona">${agent.price}</div>
+          <div className="text-sm text-white/60 font-sans">per month</div>
         </div>
       </div>
 
       {/* Task Preview */}
-      <div className="relative h-14 mb-4 overflow-hidden rounded-lg bg-gradient-to-r from-neutral-50 to-neutral-100">
+      <div className="relative h-14 mb-4 overflow-hidden rounded-lg bg-gradient-to-r from-neutral-900 to-neutral-800">
         <div
           className={`absolute inset-0 flex items-center px-3 transition-transform duration-500 ${
             isHovered ? 'transform -translate-x-3' : ''
           }`}
         >
-          <div className="flex items-center space-x-3 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-xl shadow-medium border border-white/50">
+          <div className="flex items-center space-x-3 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/10">
             <span className="text-lg">{agent.icon}</span>
             <div className="flex flex-col">
-              <span className="text-sm text-neutral-700 font-medium font-sans">{agent.task}</span>
+              <span className="text-sm text-white/80 font-medium font-sans">{agent.task}</span>
             </div>
           </div>
         </div>
@@ -195,10 +187,10 @@ function SubAgentCard({ agent, onHire, onSelect, isSelected, compact = false }: 
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
           <div className="flex items-center">
-            <span className="text-yellow-500">★</span>
-            <span className="ml-1 text-sm font-semibold text-neutral-900">{agent.rating}</span>
+            <span className="text-white">★</span>
+            <span className="ml-1 text-sm font-semibold text-white">{agent.rating}</span>
           </div>
-          <span className="text-sm text-neutral-500">({agent.reviews} reviews)</span>
+          <span className="text-sm text-white/70">({agent.reviews} reviews)</span>
         </div>
       </div>
 
@@ -209,7 +201,7 @@ function SubAgentCard({ agent, onHire, onSelect, isSelected, compact = false }: 
             e.stopPropagation()
             onHire()
           }}
-          className="button-primary flex items-center space-x-2 group font-oxona"
+          className="px-4 py-2 rounded-lg bg-white text-black flex items-center space-x-2 group font-oxona"
         >
           <span>Hire Now</span>
           <span className="text-lg transition-transform duration-200 group-hover:translate-x-1">→</span>
@@ -219,10 +211,8 @@ function SubAgentCard({ agent, onHire, onSelect, isSelected, compact = false }: 
             e.stopPropagation()
             onSelect()
           }}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-            isSelected
-              ? 'bg-primary-100 text-primary-700'
-              : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${
+            isSelected ? 'bg-white text-black border-white' : 'text-white/80 border-white/20 hover:bg-white/10'
           }`}
         >
           {isSelected ? 'Selected' : 'Select'}

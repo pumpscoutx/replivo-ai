@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { MainAgent } from '@/data/agents'
+import AgentReviews from './AgentReviews'
 
 interface MainAgentCardProps {
   agent: MainAgent
@@ -12,6 +13,7 @@ interface MainAgentCardProps {
 export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAgentCardProps) {
   const [isHovered, setIsHovered] = useState(false)
   const [showHowItWorks, setShowHowItWorks] = useState(false)
+  const [showReviews, setShowReviews] = useState(false)
 
   return (
     <div
@@ -56,6 +58,10 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
 
       {/* Agent Content */}
       <div className="p-6">
+        {/* Hover How-It-Works snippet */}
+        <div className="hidden group-hover:block mb-4">
+          <p className="text-sm text-white/70 italic">{agent.howItWorks.slice(0, 140)}{agent.howItWorks.length > 140 ? '…' : ''}</p>
+        </div>
         {/* Ratings and Reviews */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-2">
@@ -63,7 +69,9 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
               <span className="text-white">★</span>
               <span className="ml-1 text-sm font-semibold text-white/90">{agent.rating}</span>
             </div>
-            <span className="text-sm text-white/60">({agent.reviews} reviews)</span>
+            <button onClick={(e) => { e.stopPropagation(); setShowReviews(true) }} className="text-sm text-white/80 underline-offset-2 hover:underline">
+              ({agent.reviews} reviews)
+            </button>
           </div>
           <div className="flex items-center text-sm text-white/60">
             <span className="mr-1">👥</span>
@@ -167,6 +175,16 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
             </div>
           </div>
         </div>
+      )}
+
+      {/* Reviews Modal */}
+      {showReviews && (
+        <AgentReviews
+          agentName={agent.name}
+          rating={agent.rating}
+          reviews={agent.reviews}
+          onClose={() => setShowReviews(false)}
+        />
       )}
     </div>
   )

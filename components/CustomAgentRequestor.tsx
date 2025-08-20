@@ -6,6 +6,7 @@ import { X, Plus, Users, TrendingUp, Zap } from 'lucide-react'
 
 interface CustomAgentRequestorProps {
   onClose: () => void
+  onBack?: () => void
 }
 
 interface TrendingTemplate {
@@ -52,7 +53,7 @@ const trendingTemplates: TrendingTemplate[] = [
   }
 ]
 
-export default function CustomAgentRequestor({ onClose }: CustomAgentRequestorProps) {
+export default function CustomAgentRequestor({ onClose, onBack }: CustomAgentRequestorProps) {
   const [formData, setFormData] = useState({
     businessName: '',
     industry: '',
@@ -64,6 +65,7 @@ export default function CustomAgentRequestor({ onClose }: CustomAgentRequestorPr
   })
   const [step, setStep] = useState(1)
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null)
+  const [submitted, setSubmitted] = useState(false)
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -71,11 +73,8 @@ export default function CustomAgentRequestor({ onClose }: CustomAgentRequestorPr
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
     console.log('Form submitted:', formData)
-    // In a real app, this would send to backend
-    alert('Your custom agent request has been submitted! We\'ll get back to you within 24 hours.')
-    onClose()
+    setSubmitted(true)
   }
 
   const nextStep = () => setStep(prev => Math.min(prev + 1, 3))
@@ -107,7 +106,7 @@ export default function CustomAgentRequestor({ onClose }: CustomAgentRequestorPr
               </div>
             </div>
             <button
-              onClick={onClose}
+              onClick={onBack || onClose}
               className="p-2 hover:bg-secondary-100 rounded-lg transition-colors"
             >
               <X className="w-6 h-6" />
@@ -187,7 +186,14 @@ export default function CustomAgentRequestor({ onClose }: CustomAgentRequestorPr
                             ? 'border-primary-500 bg-primary-50'
                             : 'border-secondary-200 hover:border-primary-300'
                         }`}
-                        onClick={() => setSelectedTemplate(template.id)}
+                        onClick={() => {
+                          setSelectedTemplate(template.id)
+                          setFormData(prev => ({
+                            ...prev,
+                            useCase: template.description,
+                            industry: prev.industry || template.category
+                          }))
+                        }}
                         whileHover={{ scale: 1.02 }}
                       >
                         <div className="flex items-center space-x-3">
@@ -351,6 +357,7 @@ export default function CustomAgentRequestor({ onClose }: CustomAgentRequestorPr
           </div>
 
           {/* Footer */}
+          {!submitted ? (
           <div className="p-6 border-t border-secondary-200">
             <div className="flex justify-between">
               <button
@@ -378,6 +385,16 @@ export default function CustomAgentRequestor({ onClose }: CustomAgentRequestorPr
               )}
             </div>
           </div>
+          ) : (
+            <div className="p-8 text-center space-y-3">
+              <div className="text-5xl">✅</div>
+              <h3 className="text-xl font-semibold">Request submitted</h3>
+              <p className="text-secondary-600">We’ll get back to you within 24 hours.</p>
+              <div className="pt-2">
+                <button onClick={onClose} className="button-primary">Close</button>
+              </div>
+            </div>
+          )}
         </motion.div>
       </motion.div>
     </AnimatePresence>
