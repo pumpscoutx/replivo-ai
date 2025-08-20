@@ -55,7 +55,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-spotlight-bw">
+    <div className="min-h-screen bg-spotlight-pro">
       <Header 
         onLogoClick={() => {
           window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -71,25 +71,17 @@ export default function Home() {
       
       <main className="container-max section-padding relative z-10">
         {/* Hero Section */}
-        <section className="text-left mb-20 rounded-3xl p-12 bg-white/5 border border-white/10">
-          <h1 className="text-5xl md:text-6xl font-space-grotesk text-white mb-6">
-            We build custom AI solutions
-          </h1>
-          <p className="text-lg text-white/70 mb-8 max-w-2xl font-inter">
-            Strategy, design, and engineering for innovative companies.
-          </p>
+        <section className="text-left mb-20 card-glass-dark p-12">
+          <h1 className="heading-hero text-5xl md:text-6xl mb-6">We build custom AI solutions</h1>
+          <p className="text-lg text-white/70 mb-8 max-w-2xl font-inter">Strategy, design, and engineering for innovative companies.</p>
           <div className="flex gap-4 items-center">
-            <button onClick={() => setShowRecommender(true)} className="px-5 py-3 rounded-lg bg-white text-black font-space-grotesk">
-              our services
-            </button>
-            <button onClick={() => setShowRequestor(true)} className="px-5 py-3 rounded-lg bg-white/0 text-white border border-white/20 hover:bg-white/10 transition-colors font-inter">
-              contact us
-            </button>
+            <button onClick={() => setShowRecommender(true)} className="btn-white">our services</button>
+            <button onClick={() => setShowRequestor(true)} className="btn-outline-white">contact us</button>
           </div>
         </section>
 
         {/* Main Agents Grid */}
-        <section className="mb-20 rounded-3xl p-8 bg-white/5 border border-white/10">
+        <section className="mb-20 card-glass-dark p-8">
           <h2 className="text-3xl font-space-grotesk text-white mb-8 text-left">
             What we do
           </h2>

@@ -124,4 +124,22 @@
   .animate-scale-in {
     animation: scaleIn 0.2s ease-out;
   }
+
+  /* Monochrome buttons */
+  .btn-white {
+    @apply px-5 py-3 rounded-lg bg-white text-black font-space-grotesk tracking-wide;
+  }
+  .btn-outline-white {
+    @apply px-5 py-3 rounded-lg border border-white/20 text-white hover:bg-white/10 transition-colors font-sans;
+  }
+
+  /* Dark glass card */
+  .card-glass-dark {
+    @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm;
+  }
+
+  /* Hero heading */
+  .heading-hero {
+    @apply font-space-grotesk text-white tracking-tight;
+  }
 } 

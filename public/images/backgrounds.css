@@ -356,3 +356,29 @@
   background: radial-gradient(1000px 500px at 50% 80%, rgba(255,255,255,0.05) 0%, transparent 70%);
   pointer-events: none;
 } 
+
+/* Enhanced monochrome halo with vignette */
+.bg-spotlight-pro {
+  background: radial-gradient(600px 300px at 45% 22%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.0) 60%),
+              radial-gradient(800px 380px at 60% 27%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.0) 65%),
+              radial-gradient(1400px 700px at 50% 120%, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.0) 70%),
+              #000000;
+  position: relative;
+}
+.bg-spotlight-pro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.35) 100%);
+  pointer-events: none;
+}
+.bg-spotlight-pro::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 2px 2px;
+  opacity: 0.25;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+} 
