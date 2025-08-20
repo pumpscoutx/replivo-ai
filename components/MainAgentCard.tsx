@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { MainAgent } from '@/data/agents'
+import { useRouter } from 'next/navigation'
 import AgentReviews from './AgentReviews'
 
 interface MainAgentCardProps {
@@ -14,6 +15,7 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
   const [isHovered, setIsHovered] = useState(false)
   const [showHowItWorks, setShowHowItWorks] = useState(false)
   const [showReviews, setShowReviews] = useState(false)
+  const router = useRouter()
 
   return (
     <div
@@ -35,12 +37,12 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
               <div className="text-4xl">{agent.icon}</div>
             </div>
             <div className="text-right">
-              <div className="text-2xl font-oxona font-bold">${agent.price}</div>
-              <div className="text-sm opacity-90 font-sans">per month</div>
+              <div className="text-xl font-oxona font-bold">${agent.price}</div>
+              <div className="text-xs opacity-90 font-sans">per month</div>
             </div>
           </div>
-          <h3 className="text-xl font-big-slant mb-2">{agent.name}</h3>
-          <p className="text-sm opacity-90 mb-4 font-sans">{agent.description}</p>
+          <h3 className="text-lg font-big-slant mb-2">{agent.name}</h3>
+          <p className="text-sm opacity-90 mb-3 font-sans">{agent.description}</p>
           <div className="flex items-center justify-between">
             <span className="px-3 py-1 bg-white/10 rounded-full text-sm font-medium font-oxona">
               {agent.category}
@@ -57,7 +59,7 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
       </div>
 
       {/* Agent Content */}
-      <div className="p-6">
+      <div className="p-5">
         {/* Hover How-It-Works snippet */}
         <div className="hidden group-hover:block mb-4">
           <p className="text-sm text-white/70 italic">{agent.howItWorks.slice(0, 140)}{agent.howItWorks.length > 140 ? '…' : ''}</p>
@@ -92,16 +94,6 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
 
         {/* Action Buttons */}
         <div className="flex items-center justify-between">
-          <button 
-            onClick={(e) => {
-              e.stopPropagation()
-              onHire?.(agent)
-            }}
-            className="px-4 py-2 rounded-lg bg-white text-black flex items-center space-x-2 group font-oxona"
-          >
-            <span>Hire Now</span>
-            <span className="text-lg transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </button>
           <div className="flex items-center space-x-2">
             <button 
               onClick={(e) => {
@@ -122,6 +114,16 @@ export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAg
               How It Works
             </button>
           </div>
+          <button 
+            onClick={(e) => {
+              e.stopPropagation()
+              router.push(`/agents/${agent.id}`)
+            }}
+            className="px-4 py-2 rounded-lg bg-white text-black flex items-center space-x-2 group font-oxona"
+          >
+            <span>Hire Now</span>
+            <span className="text-lg transition-transform duration-200 group-hover:translate-x-1">→</span>
+          </button>
         </div>
       </div>
 
