@@ -29,10 +29,10 @@ export default function Header({ onLogoClick, onProgressTracker, onSignIn, onGet
 
 						{/* Desktop Navigation */}
 						<nav className="hidden md:flex items-center gap-8">
-							<a href="#" className="text-white/70 hover:text-white transition-colors">Agents</a>
-							<a href="#" className="text-white/70 hover:text-white transition-colors">Marketplace</a>
-							<a href="#" className="text-white/70 hover:text-white transition-colors">Pricing</a>
-							<a href="#" className="text-white/70 hover:text-white transition-colors">Support</a>
+							<a href="#pricing" className="text-white/70 hover:text-white transition-colors">Pricing</a>
+							<a href="#agents" className="text-white/70 hover:text-white transition-colors">Agents</a>
+							<a href="#request" className="text-white/70 hover:text-white transition-colors">Request Agent</a>
+							<a href="#support" className="text-white/70 hover:text-white transition-colors">Support</a>
 						</nav>
 
 						{/* CTA Buttons */}
@@ -55,6 +55,9 @@ export default function Header({ onLogoClick, onProgressTracker, onSignIn, onGet
 								className="px-4 py-2 rounded-lg bg-white text-black font-space-grotesk"
 							>
 								Get Started
+							</button>
+							<button aria-label="account" className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
+								<span>👤</span>
 							</button>
 						</div>
 

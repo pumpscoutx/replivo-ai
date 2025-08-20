@@ -8,6 +8,7 @@ import CustomAgentRequestor from '@/components/CustomAgentRequestor'
 import SubAgentMarketplace from '@/components/SubAgentMarketplace'
 import HiringWorkflow from '@/components/HiringWorkflow'
 import { mainAgents } from '@/data/agents'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   const [showRecommender, setShowRecommender] = useState(false)
@@ -55,7 +56,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-spotlight-pro">
+    <div className="min-h-screen bg-landing-gradient">
       <Header 
         onLogoClick={() => {
           window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -71,17 +72,26 @@ export default function Home() {
       
       <main className="container-max section-padding relative z-10">
         {/* Hero Section */}
-        <section className="text-left mb-20 card-glass-dark p-12">
-          <h1 className="heading-hero text-5xl md:text-6xl mb-6">We build custom AI solutions</h1>
-          <p className="text-lg text-white/70 mb-8 max-w-2xl font-inter">Strategy, design, and engineering for innovative companies.</p>
+        <section className="text-left mb-12 card-glass-dark p-12">
+          <h1 className="font-clash text-5xl md:text-6xl text-white mb-4">Hire Your Digital Team</h1>
+          <p className="text-lg text-white/75 mb-8 max-w-2xl font-inter">Smart business agents that work like humans—available instantly.</p>
           <div className="flex gap-4 items-center">
-            <button onClick={() => setShowRecommender(true)} className="btn-white">our services</button>
-            <button onClick={() => setShowRequestor(true)} className="btn-outline-white">contact us</button>
+            <a href="#agents" className="btn-white">Hire Now</a>
+            <button onClick={() => setShowRequestor(true)} className="btn-outline-white">Request Custom Agent</button>
+          </div>
+        </section>
+
+        {/* Trusted By Logos */}
+        <section className="mb-20">
+          <div className="flex flex-wrap items-center gap-6 opacity-80">
+            {['stripe','hubspot','shopify','zapier','notion','intercom','webflow','airtable'].map((name) => (
+              <div key={name} className="h-8 w-auto text-white/70 bg-white/10 border border-white/10 rounded-md px-3 py-1 capitalize">{name}</div>
+            ))}
           </div>
         </section>
 
         {/* Main Agents Grid */}
-        <section className="mb-20 card-glass-dark p-8">
+        <section id="agents" className="mb-20 card-glass-dark p-8">
           <h2 className="text-3xl font-space-grotesk text-white mb-8 text-left">
             What we do
           </h2>
@@ -96,22 +106,35 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        {/* Find an Agent Section with embedded chatbot */}
+        <section className="mb-24 card-glass-dark p-8">
+          <h2 className="text-3xl font-space-grotesk text-white mb-4">Find the perfect agent for your business.</h2>
+          <div className="text-white/70 mb-6">Describe your needs and we’ll recommend the best fit.</div>
+          {!showRecommender && (
+            <button onClick={() => setShowRecommender(true)} className="btn-white">Start Chat</button>
+          )}
+          {showRecommender && (
+            <div className="mt-6">
+              <AgentRecommender
+                onClose={() => setShowRecommender(false)}
+                onRequestCustom={() => {
+                  setShowRecommender(false)
+                  setShowRequestor(true)
+                }}
+                onAgentSelection={(agent) => {
+                  setShowRecommender(false)
+                  handleAgentSelection(agent)
+                }}
+              />
+            </div>
+          )}
+        </section>
       </main>
 
-      {showRecommender && (
-        <AgentRecommender
-          onClose={() => setShowRecommender(false)}
-          onRequestCustom={() => {
-            setShowRecommender(false)
-            setShowRequestor(true)
-          }}
-          onAgentSelection={(agent) => {
-            setShowRecommender(false)
-            handleAgentSelection(agent)
-          }}
-        />
-      )}
+      <Footer />
 
+      {/* Custom Agent Requestor Modal */}
       {showRequestor && (
         <CustomAgentRequestor
           onClose={() => setShowRequestor(false)}

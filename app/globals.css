@@ -15,6 +15,7 @@
 /* Import Custom Fonts and Backgrounds */
 @import url('/fonts/fonts.css');
 @import url('/images/backgrounds.css');
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,600,700&display=swap');
 
 @layer base {
   html {
@@ -141,5 +142,9 @@
   /* Hero heading */
   .heading-hero {
     @apply font-space-grotesk text-white tracking-tight;
+  }
+
+  .font-clash {
+    font-family: 'Clash Display', 'Space Grotesk', 'Inter', system-ui, sans-serif;
   }
 } 
