@@ -3,7 +3,14 @@
 import { useState } from 'react'
 import ProgressTracker from './ProgressTracker'
 
-export default function Header() {
+interface HeaderProps {
+  onLogoClick?: () => void
+  onProgressTracker?: () => void
+  onSignIn?: () => void
+  onGetStarted?: () => void
+}
+
+export default function Header({ onLogoClick, onProgressTracker, onSignIn, onGetStarted }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [showProgressTracker, setShowProgressTracker] = useState(false)
 
@@ -13,7 +20,10 @@ export default function Header() {
         <div className="container-max px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
+            <div 
+              className="flex items-center space-x-3 cursor-pointer"
+              onClick={onLogoClick}
+            >
               <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-accent-500 rounded-xl flex items-center justify-center shadow-medium">
                 <span className="text-white text-xl">⚡</span>
               </div>
@@ -39,16 +49,22 @@ export default function Header() {
             {/* CTA Buttons */}
             <div className="hidden md:flex items-center space-x-4">
               <button 
-                onClick={() => setShowProgressTracker(true)}
+                onClick={onProgressTracker || (() => setShowProgressTracker(true))}
                 className="text-neutral-600 hover:text-primary-600 transition-colors flex items-center space-x-2 font-sans"
               >
                 <span>📊</span>
                 <span>Progress</span>
               </button>
-              <button className="text-neutral-600 hover:text-primary-600 transition-colors font-sans">
+              <button 
+                onClick={onSignIn}
+                className="text-neutral-600 hover:text-primary-600 transition-colors font-sans"
+              >
                 Sign In
               </button>
-              <button className="button-primary font-oxona">
+              <button 
+                onClick={onGetStarted}
+                className="button-primary font-oxona"
+              >
                 Get Started
               </button>
             </div>

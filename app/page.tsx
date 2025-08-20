@@ -6,6 +6,7 @@ import MainAgentCard from '@/components/MainAgentCard'
 import AgentRecommender from '@/components/AgentRecommender'
 import CustomAgentRequestor from '@/components/CustomAgentRequestor'
 import SubAgentMarketplace from '@/components/SubAgentMarketplace'
+import HiringWorkflow from '@/components/HiringWorkflow'
 import { mainAgents } from '@/data/agents'
 
 export default function Home() {
@@ -13,21 +14,69 @@ export default function Home() {
   const [showRequestor, setShowRequestor] = useState(false)
   const [showSubAgentMarketplace, setShowSubAgentMarketplace] = useState(false)
   const [selectedSubAgents, setSelectedSubAgents] = useState<any[]>([])
+  const [showHiringWorkflow, setShowHiringWorkflow] = useState(false)
+  const [selectedAgent, setSelectedAgent] = useState<any>(null)
+  const [showMonthlyReport, setShowMonthlyReport] = useState(false)
+  const [showProgressTracker, setShowProgressTracker] = useState(false)
 
+  // Navigation Handlers
   const handleViewSubAgents = (subAgents: any[]) => {
     setSelectedSubAgents(subAgents)
     setShowSubAgentMarketplace(true)
   }
 
+  const handleHireMainAgent = (agent: any) => {
+    setSelectedAgent(agent)
+    setShowHiringWorkflow(true)
+    // This would open the hiring workflow for the main agent
+    console.log('Opening hiring workflow for main agent:', agent.name)
+  }
+
   const handleHireSubAgent = (subAgent: any) => {
-    // Handle sub-agent hiring logic
-    console.log('Hiring sub-agent:', subAgent)
-    // You can add a toast notification or modal here
+    setSelectedAgent(subAgent)
+    setShowHiringWorkflow(true)
+    // This would open the hiring workflow for the sub-agent
+    console.log('Opening hiring workflow for sub-agent:', subAgent.name)
+  }
+
+  const handleAgentSelection = (agent: any) => {
+    // Navigate to selected agent (could be main agent or sub-agent)
+    if (agent.subAgents) {
+      // It's a main agent, show sub-agent marketplace
+      handleViewSubAgents(agent.subAgents)
+    } else {
+      // It's a sub-agent, open hiring workflow
+      handleHireSubAgent(agent)
+    }
+  }
+
+  const handleViewMonthlyReport = () => {
+    setShowMonthlyReport(true)
+    console.log('Opening monthly report')
+  }
+
+  const handleViewProgressTracker = () => {
+    setShowProgressTracker(true)
+    console.log('Opening progress tracker')
   }
 
   return (
     <div className="min-h-screen bg-hero-section">
-      <Header />
+      <Header 
+        onLogoClick={() => {
+          // Return to main agents page (refresh or scroll to top)
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }}
+        onProgressTracker={handleViewProgressTracker}
+        onSignIn={() => {
+          console.log('Opening sign in modal')
+          // This would open a sign in modal
+        }}
+        onGetStarted={() => {
+          console.log('Opening get started flow')
+          // This would open the onboarding flow
+        }}
+      />
       
       <main className="container-max section-padding relative z-10">
         {/* Hero Section */}
@@ -63,6 +112,7 @@ export default function Home() {
                 key={agent.id} 
                 agent={agent} 
                 onViewSubAgents={handleViewSubAgents}
+                onHire={handleHireMainAgent}
               />
             ))}
           </div>
@@ -90,6 +140,10 @@ export default function Home() {
             setShowRecommender(false)
             setShowRequestor(true)
           }}
+          onAgentSelection={(agent) => {
+            setShowRecommender(false)
+            handleAgentSelection(agent)
+          }}
         />
       )}
 
@@ -106,6 +160,23 @@ export default function Home() {
           subAgents={selectedSubAgents}
           onClose={() => setShowSubAgentMarketplace(false)}
           onHire={handleHireSubAgent}
+        />
+      )}
+
+      {/* Hiring Workflow Modal */}
+      {showHiringWorkflow && selectedAgent && (
+        <HiringWorkflow
+          agent={selectedAgent}
+          onClose={() => {
+            setShowHiringWorkflow(false)
+            setSelectedAgent(null)
+          }}
+          onComplete={(agent) => {
+            console.log('Successfully hired:', agent.name)
+            setShowHiringWorkflow(false)
+            setSelectedAgent(null)
+            // Could show a success notification here
+          }}
         />
       )}
     </div>

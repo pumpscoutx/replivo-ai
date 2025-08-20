@@ -6,9 +6,10 @@ import { MainAgent } from '@/data/agents'
 interface MainAgentCardProps {
   agent: MainAgent
   onViewSubAgents?: (subAgents: MainAgent['subAgents']) => void
+  onHire?: (agent: MainAgent) => void
 }
 
-export default function MainAgentCard({ agent, onViewSubAgents }: MainAgentCardProps) {
+export default function MainAgentCard({ agent, onViewSubAgents, onHire }: MainAgentCardProps) {
   const [isHovered, setIsHovered] = useState(false)
   const [showHowItWorks, setShowHowItWorks] = useState(false)
 
@@ -103,7 +104,13 @@ export default function MainAgentCard({ agent, onViewSubAgents }: MainAgentCardP
 
         {/* Action Buttons */}
         <div className="flex items-center justify-between">
-          <button className="button-primary flex items-center space-x-2 group font-oxona">
+          <button 
+            onClick={(e) => {
+              e.stopPropagation()
+              onHire?.(agent)
+            }}
+            className="button-primary flex items-center space-x-2 group font-oxona"
+          >
             <span>Hire Now</span>
             <span className="text-lg transition-transform duration-200 group-hover:translate-x-1">→</span>
           </button>

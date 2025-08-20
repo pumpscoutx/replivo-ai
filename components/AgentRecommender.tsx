@@ -6,6 +6,7 @@ import { mainAgents } from '@/data/agents'
 interface AgentRecommenderProps {
   onClose: () => void
   onRequestCustom: () => void
+  onAgentSelection?: (agent: any) => void
 }
 
 interface Message {
@@ -15,7 +16,7 @@ interface Message {
   timestamp: Date
 }
 
-export default function AgentRecommender({ onClose, onRequestCustom }: AgentRecommenderProps) {
+export default function AgentRecommender({ onClose, onRequestCustom, onAgentSelection }: AgentRecommenderProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -59,14 +60,44 @@ export default function AgentRecommender({ onClose, onRequestCustom }: AgentReco
     const input = userInput.toLowerCase()
     
     if (input.includes('social') || input.includes('marketing') || input.includes('post')) {
+      const marketingAgent = mainAgents.find(agent => agent.name === 'Marketing Master')
+      if (marketingAgent) {
+        setTimeout(() => {
+          onAgentSelection?.(marketingAgent)
+        }, 2000)
+      }
       return "Based on your needs, I recommend the **Marketing Master** agent! It includes content creation, social media management, email campaigns, and analytics. Perfect for businesses looking to boost their marketing presence. Would you like to see more details?"
     } else if (input.includes('customer') || input.includes('support') || input.includes('help')) {
+      const supportAgent = mainAgents.find(agent => agent.name === 'Customer Success Pro')
+      if (supportAgent) {
+        setTimeout(() => {
+          onAgentSelection?.(supportAgent)
+        }, 2000)
+      }
       return "I think the **Customer Success Pro** would be perfect for you! It handles 24/7 support with intelligent ticket routing and satisfaction tracking. Great for improving customer satisfaction."
     } else if (input.includes('sales') || input.includes('lead') || input.includes('conversion')) {
+      const salesAgent = mainAgents.find(agent => agent.name === 'Sales Dynamo')
+      if (salesAgent) {
+        setTimeout(() => {
+          onAgentSelection?.(salesAgent)
+        }, 2000)
+      }
       return "The **Sales Dynamo** agent sounds like what you need! It handles lead generation, prospect nurturing, and conversion optimization. Ideal for boosting your sales performance."
     } else if (input.includes('data') || input.includes('analytics') || input.includes('report')) {
+      const analyticsSubAgent = mainAgents.flatMap(agent => agent.subAgents).find(subAgent => subAgent.name === 'Analytics Expert')
+      if (analyticsSubAgent) {
+        setTimeout(() => {
+          onAgentSelection?.(analyticsSubAgent)
+        }, 2000)
+      }
       return "Consider the **Analytics Expert** sub-agent! It processes data, generates reports, and identifies trends. Perfect for data-driven decision making."
     } else if (input.includes('email') || input.includes('newsletter') || input.includes('campaign')) {
+      const emailSubAgent = mainAgents.flatMap(agent => agent.subAgents).find(subAgent => subAgent.name === 'Email Specialist')
+      if (emailSubAgent) {
+        setTimeout(() => {
+          onAgentSelection?.(emailSubAgent)
+        }, 2000)
+      }
       return "The **Email Specialist** sub-agent might be perfect! It creates personalized email sequences and manages campaigns. Excellent for email marketing automation."
     } else {
       return "I'm not sure I have the perfect agent for your specific needs. Would you like me to help you request a custom agent instead? I can guide you through the process!"
