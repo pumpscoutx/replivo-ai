@@ -18,28 +18,28 @@ export default function MainAgentCard({ agent, onViewSubAgents }: MainAgentCardP
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Agent Header */}
-      <div className={`p-6 bg-gradient-to-r ${agent.color} text-white relative overflow-hidden`}>
+      <div className={`p-6 bg-gradient-to-r ${agent.color} text-white relative overflow-hidden rounded-t-xl`}>
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-4">
-            <div className="text-3xl">{agent.icon}</div>
+            <div className="text-4xl">{agent.icon}</div>
             <div className="text-right">
-              <div className="text-2xl font-bold">${agent.price}</div>
-              <div className="text-sm opacity-90">per month</div>
+              <div className="text-2xl font-oxona font-bold">${agent.price}</div>
+              <div className="text-sm opacity-90 font-sans">per month</div>
             </div>
           </div>
-          <h3 className="text-xl font-bold mb-2">{agent.name}</h3>
-          <p className="text-sm opacity-90 mb-4">{agent.description}</p>
+          <h3 className="text-xl font-big-slant mb-2">{agent.name}</h3>
+          <p className="text-sm opacity-90 mb-4 font-sans">{agent.description}</p>
           <div className="flex items-center justify-between">
-            <span className="px-3 py-1 bg-white/20 rounded-full text-sm font-medium">
+            <span className="px-3 py-1 bg-white/20 rounded-full text-sm font-medium font-oxona">
               {agent.category}
             </span>
             <div className="flex items-center space-x-2">
               <div className="flex items-center">
                 <span className="text-yellow-300">★</span>
-                <span className="ml-1 text-sm font-semibold">{agent.rating}</span>
+                <span className="ml-1 text-sm font-semibold font-sans">{agent.rating}</span>
               </div>
-              <span className="text-sm opacity-90">({agent.reviews} reviews)</span>
+              <span className="text-sm opacity-90 font-sans">({agent.reviews} reviews)</span>
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@ export default function MainAgentCard({ agent, onViewSubAgents }: MainAgentCardP
 
         {/* Action Buttons */}
         <div className="flex items-center justify-between">
-          <button className="button-primary flex items-center space-x-2 group">
+          <button className="button-primary flex items-center space-x-2 group font-oxona">
             <span>Hire Now</span>
             <span className="text-lg transition-transform duration-200 group-hover:translate-x-1">→</span>
           </button>
@@ -98,11 +98,11 @@ export default function MainAgentCard({ agent, onViewSubAgents }: MainAgentCardP
                 e.stopPropagation()
                 onViewSubAgents?.(agent.subAgents)
               }}
-              className="button-ghost text-sm"
+              className="button-ghost text-sm font-sans"
             >
               View Sub-Agents
             </button>
-            <button className="button-ghost text-sm">
+            <button className="button-ghost text-sm font-sans">
               View Details
             </button>
           </div>

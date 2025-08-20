@@ -1,0 +1,47 @@
+/* Custom Font Declarations for Replivo Platform */
+
+/* Oxona Caps - Bold, futuristic font with sharp edges */
+@font-face {
+  font-family: 'Oxona Caps';
+  src: url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Better Days - Handwritten script font with flowing curves */
+@font-face {
+  font-family: 'Better Days';
+  src: url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* BIG Slant Black UltExp - Heavy, slanted font for strength and modernity */
+@font-face {
+  font-family: 'BIG Slant Black UltExp';
+  src: url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback font classes */
+.font-oxona {
+  font-family: 'Orbitron', 'Oxona Caps', monospace;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.font-better-days {
+  font-family: 'Dancing Script', 'Better Days', cursive;
+  font-weight: 500;
+}
+
+.font-big-slant {
+  font-family: 'Anton', 'BIG Slant Black UltExp', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+} 

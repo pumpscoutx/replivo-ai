@@ -9,15 +9,15 @@ export default function Header() {
 
   return (
     <>
-      <header className="glass-effect sticky top-0 z-50">
+      <header className="bg-modern-header glass-effect sticky top-0 z-50">
         <div className="container-max px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-accent-500 rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg">⚡</span>
+              <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-accent-500 rounded-xl flex items-center justify-center shadow-medium">
+                <span className="text-white text-xl">⚡</span>
               </div>
-              <span className="text-2xl font-bold text-neutral-900 text-display">Replivo</span>
+              <span className="text-3xl font-oxona text-neutral-900 font-bold">REPLIVO</span>
             </div>
 
             {/* Desktop Navigation */}
@@ -40,15 +40,15 @@ export default function Header() {
             <div className="hidden md:flex items-center space-x-4">
               <button 
                 onClick={() => setShowProgressTracker(true)}
-                className="text-neutral-600 hover:text-primary-600 transition-colors flex items-center space-x-2"
+                className="text-neutral-600 hover:text-primary-600 transition-colors flex items-center space-x-2 font-sans"
               >
                 <span>📊</span>
                 <span>Progress</span>
               </button>
-              <button className="text-neutral-600 hover:text-primary-600 transition-colors">
+              <button className="text-neutral-600 hover:text-primary-600 transition-colors font-sans">
                 Sign In
               </button>
-              <button className="button-primary">
+              <button className="button-primary font-oxona">
                 Get Started
               </button>
             </div>
