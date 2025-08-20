@@ -45,10 +45,20 @@ export default function FindAgentPage() {
                 <p className="text-white/60 text-sm mt-3">AI will analyze your needs and suggest the best agents</p>
               </div>
             ) : (
-              <AgentRecommender
-                onClose={() => setShowChat(false)}
-                onRequestCustom={() => router.push('/request-agent')}
-              />
+              <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">AI Agent Advisor</h3>
+                    <button 
+                      onClick={() => setShowChat(false)}
+                      className="text-gray-500 hover:text-gray-700"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <AgentRecommender />
+                </div>
+              </div>
             )}
           </div>
 

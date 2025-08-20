@@ -1,0 +1,158 @@
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { MainAgent } from "@/data/agents";
+
+interface AgentCardProps {
+  agent: MainAgent;
+}
+
+export default function AgentCard({ agent }: AgentCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const formatPrice = (price: number) => {
+    return `$${price}`;
+  };
+
+  const formatRating = (rating: number) => {
+    return rating.toFixed(1);
+  };
+
+  const renderStars = (rating: number) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = (rating % 1) >= 0.5;
+
+    for (let i = 0; i < 5; i++) {
+      if (i < fullStars) {
+        stars.push(<i key={i} className="fas fa-star text-yellow-400"></i>);
+      } else if (i === fullStars && hasHalfStar) {
+        stars.push(<i key={i} className="fas fa-star-half-alt text-yellow-400"></i>);
+      } else {
+        stars.push(<i key={i} className="far fa-star text-yellow-400"></i>);
+      }
+    }
+    return stars;
+  };
+
+  const getAgentImage = (agentName: string) => {
+    const imageMap: { [key: string]: string } = {
+      "Marketing Master": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300",
+      "Customer Success Pro": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300",
+      "Sales Dynamo": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300"
+    };
+    return imageMap[agentName] || agent.profileImage || "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=300";
+  };
+
+  const getSubagentNames = (agentName: string) => {
+    const subagentMap: Record<string, string> = {
+      "Marketing Master": "Content Creator • Social Media Manager • Email Specialist • Analytics Expert",
+      "Customer Success Pro": "Live Chat Agent • Ticket Manager • Knowledge Base Manager • Social Support Agent",
+      "Sales Dynamo": "Lead Generator • Sales Qualifier • Demo Specialist • Follow-up Agent"
+    };
+    return subagentMap[agentName] || agent.subAgents.map(sa => sa.name).join(" • ");
+  };
+
+  return (
+    <motion.div
+      className="agent-card bg-gray-800 rounded-3xl shadow-xl hover:shadow-2xl border border-gray-700 group overflow-hidden cursor-pointer"
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      whileHover={{ y: -12, scale: 1.03 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+    >
+      {/* Agent Image Header */}
+      <div className="relative h-48 overflow-hidden">
+        <motion.img 
+          src={getAgentImage(agent.name)}
+          alt={agent.name}
+          className="w-full h-full object-cover"
+          animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
+          transition={{ duration: 0.4 }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+        <motion.div 
+          className="absolute top-4 left-4 w-16 h-16 bg-gray-800/60 backdrop-blur-md rounded-2xl flex items-center justify-center border border-gray-600/50"
+          animate={isHovered ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="text-gray-300 text-2xl">{agent.icon}</div>
+        </motion.div>
+        
+        {/* Featured Badge */}
+        {agent.features && agent.features.length > 0 && (
+          <div className="absolute top-4 right-4 bg-gray-700 text-gray-300 rounded-full px-3 py-1 text-xs font-bold border border-gray-600">
+            <i className="fas fa-star mr-1"></i>
+            FEATURED
+          </div>
+        )}
+      </div>
+
+      <div className="p-8">
+        <h3 className="text-2xl font-neiko font-bold text-white mb-3">{agent.name.toUpperCase()}</h3>
+        <p className="text-gray-400 mb-4 leading-relaxed">{agent.description}</p>
+        
+        {/* Moving Subagent Names */}
+        <div className="mb-4 overflow-hidden bg-gray-700/30 rounded-lg p-2 border border-gray-600/30">
+          <div className="text-xs text-gray-500 mb-1 font-neiko">INCLUDES:</div>
+          <div className="relative h-4 overflow-hidden">
+            <div className="subagent-text-slide text-sm text-gray-400 font-medium whitespace-nowrap">
+              {getSubagentNames(agent.name)}
+            </div>
+          </div>
+        </div>
+      
+      {/* Ratings */}
+      <div className="flex items-center mb-4">
+        <div className="flex mr-2">
+          {renderStars(agent.rating)}
+        </div>
+        <span className="text-sm text-gray-400">
+          ({formatRating(agent.rating)}) • {agent.reviews} reviews
+        </span>
+      </div>
+      
+      {/* Task Preview (animated on hover) */}
+      <AnimatePresence>
+        {isHovered && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="mb-4"
+          >
+            <div className="bg-gray-700/50 rounded-lg p-3 text-sm space-y-1 border border-gray-600/30">
+              {agent.subAgents.slice(0, 3).map((subAgent, index) => (
+                <motion.div
+                  key={subAgent.id}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex items-center text-gray-300"
+                >
+                  <i className={`fas fa-${index === 0 ? 'check-circle text-gray-400' : index === 1 ? 'clock text-gray-400' : 'chart-line text-gray-400'} mr-2`}></i>
+                  <span>{subAgent.task}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+        <div className="flex justify-between items-center">
+          <Button 
+            className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-3 rounded-lg font-neiko font-bold text-lg shadow-lg transition-all transform hover:scale-105 border border-gray-700"
+          >
+            <i className="fas fa-shopping-cart mr-2"></i>
+            VIEW AGENTS
+          </Button>
+          <div className="text-right">
+            <span className="text-3xl font-neiko font-black text-white">{formatPrice(agent.price)}</span>
+            <span className="text-gray-400 font-medium">/mo</span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+} 

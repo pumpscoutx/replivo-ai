@@ -114,23 +114,26 @@ export default function Home() {
         {/* Find an Agent Section with embedded chatbot */}
         <section className="mb-24 card-glass-dark p-8">
           <h2 className="text-3xl font-space-grotesk text-white mb-4">Find the perfect agent for your business.</h2>
-          <div className="text-white/70 mb-6">Describe your needs and we’ll recommend the best fit.</div>
+          <div className="text-white/70 mb-6">Describe your needs and we'll recommend the best fit.</div>
           {!showRecommender && (
             <button onClick={() => setShowRecommender(true)} className="btn-white">Start Chat</button>
           )}
           {showRecommender && (
             <div className="mt-6">
-              <AgentRecommender
-                onClose={() => setShowRecommender(false)}
-                onRequestCustom={() => {
-                  setShowRecommender(false)
-                  setShowRequestor(true)
-                }}
-                onAgentSelection={(agent) => {
-                  setShowRecommender(false)
-                  handleAgentSelection(agent)
-                }}
-              />
+              <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">AI Agent Advisor</h3>
+                    <button 
+                      onClick={() => setShowRecommender(false)}
+                      className="text-gray-500 hover:text-gray-700"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <AgentRecommender />
+                </div>
+              </div>
             </div>
           )}
         </section>
